@@ -95,9 +95,9 @@ def recover_label(pred_variable, gold_variable, mask_variable, label_alphabet, w
         gold_label.append(gold)
     return pred_label, gold_label
 
-
+#调用来自：save_data_setting(data, save_data_name)
 def save_data_setting(data, save_file):
-    new_data = copy.deepcopy(data)
+    new_data = copy.deepcopy(data)  #复制data到new_data
     ## remove input instances
     new_data.train_texts = []
     new_data.dev_texts = []
@@ -242,20 +242,22 @@ def batchify_with_label(input_batch_list, gpu, volatile_flag=False):
         mask = mask.cuda()
     return gaz_list, word_seq_tensor, biword_seq_tensor, word_seq_lengths, word_seq_recover, char_seq_tensor, char_seq_lengths, char_seq_recover, label_seq_tensor, mask
 
-
+#调用来自：train(data, save_model_dir, seg)
 def train(data, save_model_dir, seg=True):
     print "Training model..."
-    data.show_data_summary()
+    data.show_data_summary()   #打印data信息
     save_data_name = save_model_dir +".dset"
-    save_data_setting(data, save_data_name)
+    save_data_setting(data, save_data_name)  #保存数据：pickle.dump(new_data, fp)
+	
     model = SeqModel(data)
+	
     print "finished built model."
     loss_function = nn.NLLLoss()
     parameters = filter(lambda p: p.requires_grad, model.parameters())
     optimizer = optim.SGD(parameters, lr=data.HP_lr, momentum=data.HP_momentum)
     best_dev = -1
     ## start training
-    for idx in range(data.HP_iteration):
+    for idx in range(data.HP_iteration):   #HP_iteration=50
         epoch_start = time.time()
         temp_start = epoch_start
         print("Epoch: %s/%s" %(idx,data.HP_iteration))
@@ -268,6 +270,7 @@ def train(data, save_model_dir, seg=True):
         right_token = 0
         whole_token = 0
         random.shuffle(data.train_Ids)
+		
         ## set model in train model
         model.train()
         model.zero_grad()
@@ -442,8 +445,8 @@ if __name__ == '__main__':
 		##data.gaz_alphabet：所有的子词
         data_initialization(data, gaz_file, train_file, dev_file, test_file)
 		
-		#data.instence_texts：[words, biwords, chars, labels]
-		#data.instence_Ids：[word_Ids, biword_Ids, char_Ids,label_Ids]
+		#data.train_texts：[words, biwords, chars, labels]
+		#data.train_Ids：[word_Ids, biword_Ids, char_Ids,label_Ids]
         data.generate_instance_with_gaz(train_file,'train')
         data.generate_instance_with_gaz(dev_file,'dev')
         data.generate_instance_with_gaz(test_file,'test')

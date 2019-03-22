@@ -1,5 +1,3 @@
-data = Data()
-
 data  -> 
 	#Alphabet类
 	word_alphabet    = Alphabet('word')		#放入每行 中的字
@@ -17,15 +15,12 @@ data  ->
 	gaz_alphabet = Alphabet('gaz')    
 
 	#数据集
-	self.train_texts = []
-        self.dev_texts = []
-        self.test_texts = []
-        self.raw_texts = []
+	self.train_texts = []	self.dev_texts = []	self.test_texts = []	self.raw_texts = []
+        self.train_Ids = []	self.dev_Ids = []	self.test_Ids = []	self.raw_Ids = []
 
-        self.train_Ids = []
-        self.dev_Ids = []
-        self.test_Ids = []
-        self.raw_Ids = []
+        self.pretrain_word_embedding = None
+        self.pretrain_biword_embedding = None
+        self.pretrain_gaz_embedding = None
 
 Alphabet  ->      __name
 		instance2index = {}		#加入训练集匹配到的单词  +  index    instance2index[0]="</unk>"

@@ -1,0 +1,42 @@
+data = Data()
+
+data  -> 
+	#Alphabet类
+	word_alphabet    = Alphabet('word')		#放入每行 中的字
+	 biword_alphabet  =Alphabet('biword')		#放入每行字+下一行字组成的bigram
+	 char_alphabet   =Alphabet('character')		#放入每行 中的字
+	 label_alphabet  = Alphabet('label', True)     # 放入每行字的标签 B-SEG/E-SEG...
+	 gaz_alphabet = Alphabet('gaz')			#训练集等在gaz_file中匹配到的词
+	
+	#普通变量
+	word_alphabet_size、biword_alphabet_size...
+	tagScheme    # "BMES" or  "BIO"
+
+	#Gazetteer类
+	gaz = Gazetteer(self.gaz_lower)
+	gaz_alphabet = Alphabet('gaz')    
+
+	#数据集
+	self.train_texts = []
+        self.dev_texts = []
+        self.test_texts = []
+        self.raw_texts = []
+
+        self.train_Ids = []
+        self.dev_Ids = []
+        self.test_Ids = []
+        self.raw_Ids = []
+
+Alphabet  ->      __name
+		instance2index = {}		#加入训练集匹配到的单词  +  index    instance2index[0]="</unk>"
+		instances = []			#加入训练集匹配到的单词
+
+Gazetteer   ->   trie = Trie() 
+		 ent2type = {}				# word list to type   
+		 ent2id = {"<UNK>":0}			# word to id
+		 space = ""				#始终为空  用于space.join(word_list)  :list 就变成了字符串
+
+Trie     ->    root = TrieNode()
+TrieNode ->    children = collections.defaultdict(TrieNode)
+
+
