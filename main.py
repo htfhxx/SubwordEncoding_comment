@@ -445,11 +445,15 @@ if __name__ == '__main__':
 		##data.gaz_alphabet：所有的子词
         data_initialization(data, gaz_file, train_file, dev_file, test_file)
 		
-		#data.train_texts：[words, biwords, chars, labels]
-		#data.train_Ids：[word_Ids, biword_Ids, char_Ids,label_Ids]
+		#data.train_texts：[words, biwords, chars, gazs, labels])  
+		#data.train_Ids：[word_Ids, biword_Ids, char_Ids, gaz_Ids, label_Ids]
         data.generate_instance_with_gaz(train_file,'train')
         data.generate_instance_with_gaz(dev_file,'dev')
         data.generate_instance_with_gaz(test_file,'test')
+		
+		#得到的data.train_texts的维度：np.array(data.train_texts).shape   (15L, 5L)
+		#意思是 15个句子  5个维度[words, biwords, chars, gazs, labels]
+		
 		
 		#字的embedding：data.pretrain_word_embedding	  data.word_emb_dim
         data.build_word_pretrain_emb(char_emb)

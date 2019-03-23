@@ -1,7 +1,8 @@
+#coding=utf-8
 from trie import Trie 
 
-#调用来自：        self.gaz_lower = False    self.gaz = Gazetteer(self.gaz_lower)
 class Gazetteer:
+    #from:   self.gaz_lower = False    self.gaz = Gazetteer(self.gaz_lower)
     def __init__(self, lower): #lower=gaz_lower=False
         self.trie = Trie()
         self.ent2type = {} ## word list to type

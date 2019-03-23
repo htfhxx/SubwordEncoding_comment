@@ -261,7 +261,8 @@ class Data:
         else:
             print("Error: you can only generate train/dev/test instance! Illegal input:%s"%(name))
 
-
+	#instence_texts.append([words, biwords, chars, gazs, labels])  
+     # instence_Ids.append([word_Ids, biword_Ids, char_Ids, gaz_Ids, label_Ids])
     def generate_instance_with_gaz(self, input_file, name):
         self.fix_alphabet()
         if name == "train":

@@ -7,7 +7,7 @@ import sys
 import numpy as np
 from alphabet import Alphabet
 NULLKEY = "-null-"
-def normalize_word(word):
+def normalize_word(word): #字符串中的数字转换成0
     new_word = ""
     for char in word:
         if char.isdigit():  #检测字符串是否只由数字组成
@@ -66,10 +66,7 @@ def read_instance(input_file, word_alphabet, char_alphabet, label_alphabet, numb
             label_Ids = []
     return instence_texts, instence_Ids
 
-#调用来自：data.train_texts, self.train_Ids 
-#= read_seg_instance(input_file, self.word_alphabet, self.biword_alphabet, 
-#  self.char_alphabet, self.label_alphabet, self.number_normalized, self.MAX_SENTENCE_LENGTH)  
-#number_normalized = True  AX_SENTENCE_LENGTH = 250
+
 def read_seg_instance(input_file, word_alphabet, biword_alphabet, char_alphabet, label_alphabet, number_normalized, max_sent_length, char_padding_size=-1, char_padding_symbol = '</pad>'):
     in_lines = open(input_file,'r').readlines()
     instence_texts = []
@@ -88,7 +85,7 @@ def read_seg_instance(input_file, word_alphabet, biword_alphabet, char_alphabet,
             pairs = line.strip().split() #词+标注
             word = pairs[0].decode('utf-8')
             if number_normalized:
-                word = normalize_word(word)
+                word = normalize_word(word)  
             label = pairs[-1]
             words.append(word)
             if idx < len(in_lines) -1 and len(in_lines[idx+1]) > 2:
@@ -120,7 +117,7 @@ def read_seg_instance(input_file, word_alphabet, biword_alphabet, char_alphabet,
         #一句话完结后存入instence_texts和instence_Ids
 		#instence_texts：[words, biwords, chars, labels]
 		#instence_Ids：[word_Ids, biword_Ids, char_Ids,label_Ids]
-		else: 
+        else: 
             if (max_sent_length < 0) or (len(words) < max_sent_length):
                 instence_texts.append([words, biwords, chars, labels])
                 instence_Ids.append([word_Ids, biword_Ids, char_Ids,label_Ids])
@@ -134,23 +131,25 @@ def read_seg_instance(input_file, word_alphabet, biword_alphabet, char_alphabet,
             label_Ids = []
     return instence_texts, instence_Ids
 
-
+#调用来自：self.train_texts, self.train_Ids = read_instance_with_gaz(
+#input_file, self.gaz, self.word_alphabet, self.biword_alphabet, self.char_alphabet, self.gaz_alphabet,  
+#self.label_alphabet, self.number_normalized, self.MAX_SENTENCE_LENGTH)
 def read_instance_with_gaz(input_file, gaz, word_alphabet, biword_alphabet, char_alphabet, gaz_alphabet, label_alphabet, number_normalized, max_sent_length, char_padding_size=-1, char_padding_symbol = '</pad>'):
     in_lines = open(input_file,'r').readlines()
     instence_texts = []
     instence_Ids = []
-    words = []
-    biwords = []
-    chars = []
+    words = []     #每行的字
+    biwords = []    #每行的字+下一行的字
+    chars = []    ##第四维放入的这一句话的char
     labels = []
-    word_Ids = []
+    word_Ids = []    #word_alphabet 中 词对应的id
     biword_Ids = []
     char_Ids = []
-    label_Ids = []
+    label_Ids = []    #label_alphabet  中 词对应的id
     for idx in xrange(len(in_lines)):
         line = in_lines[idx]
         if len(line) > 2:
-            pairs = line.strip().split()
+            pairs = line.strip().split()   #词+标注
             word = pairs[0].decode('utf-8')
             if number_normalized:
                 word = normalize_word(word)
@@ -158,7 +157,7 @@ def read_instance_with_gaz(input_file, gaz, word_alphabet, biword_alphabet, char
             if idx < len(in_lines) -1 and len(in_lines[idx+1]) > 2:
                 biword = word + in_lines[idx+1].strip().split()[0].decode('utf-8')
             else:
-                biword = word + NULLKEY
+                biword = word + NULLKEY   #NULLKEY = "-null-"
             biwords.append(biword)
             words.append(word)
             labels.append(label)
@@ -169,7 +168,7 @@ def read_instance_with_gaz(input_file, gaz, word_alphabet, biword_alphabet, char
             char_list = []
             char_Id = []
             for char in word:
-                char_list.append(char)
+                char_list.append(char)   #char_list就是word
             if char_padding_size > 0:
                 char_number = len(char_list)
                 if char_number < char_padding_size:
@@ -180,12 +179,13 @@ def read_instance_with_gaz(input_file, gaz, word_alphabet, biword_alphabet, char
                 pass
             for char in char_list:
                 char_Id.append(char_alphabet.get_index(char))
-            chars.append(char_list)
+            chars.append(char_list)  #第四维放入的这一句话的char
             char_Ids.append(char_Id)
 
+		#到了一句话的结束
         else:
             if ((max_sent_length < 0) or (len(words) < max_sent_length)) and (len(words)>0):
-                gazs = []
+                gazs = []  #子词列表
                 gaz_Ids = []
                 w_length = len(words)
                 # print sentence 
@@ -193,7 +193,7 @@ def read_instance_with_gaz(input_file, gaz, word_alphabet, biword_alphabet, char
                 #     print w," ",
                 # print
                 for idx in range(w_length):
-                    matched_list = gaz.enumerateMatchList(words[idx:])
+                    matched_list = gaz.enumerateMatchList(words[idx:])   #
                     matched_length = [len(a) for a in matched_list]
                     # print idx,"----------"
                     # print "forward...feed:","".join(words[idx:])
@@ -210,7 +210,7 @@ def read_instance_with_gaz(input_file, gaz, word_alphabet, biword_alphabet, char
                     else:
                         gaz_Ids.append([])
                     
-                instence_texts.append([words, biwords, chars, gazs, labels])
+                instence_texts.append([words, biwords, chars, gazs, labels])  
                 instence_Ids.append([word_Ids, biword_Ids, char_Ids, gaz_Ids, label_Ids])
             words = []
             biwords = []
@@ -223,6 +223,10 @@ def read_instance_with_gaz(input_file, gaz, word_alphabet, biword_alphabet, char
             gazs = []
             gaz_Ids = []
     return instence_texts, instence_Ids
+
+#匹配子词方法：假如句子长10，第一次从0开始，前向词典匹配，匹配到01/012 两个词
+#							第二次从1开始，前向词典匹配，匹配到12 一个词
+
 
 
 def read_instance_with_gaz_in_sentence(input_file, gaz, word_alphabet, biword_alphabet, char_alphabet, gaz_alphabet, label_alphabet, number_normalized, max_sent_length, char_padding_size=-1, char_padding_symbol = '</pad>'):
