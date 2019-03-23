@@ -35,3 +35,44 @@ Trie     ->    root = TrieNode()
 TrieNode ->    children = collections.defaultdict(TrieNode)
 
 
+
+
+main.py:
+	model = BiLSTM_CRF(data)
+
+
+bilstmcrf.py:
+	self.lstm = BiLSTM(data)
+	self.crf = CRF(label_size, self.gpu)
+
+bilstm.py:
+	self.char_feature = CharBiLSTM(data.char_alphabet.size(), self.char_embedding_dim, self.char_hidden_dim, data.HP_dropout, self.gpu)
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

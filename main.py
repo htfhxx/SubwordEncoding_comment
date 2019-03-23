@@ -121,11 +121,15 @@ def load_data_setting(save_file):
     data.show_data_summary()
     return data
 
+
+#调整学习率
+#from:optimizer = lr_decay(optimizer, idx, data.HP_lr_decay, data.HP_lr) 
+#									decay_rate：HP_lr_decay=0.05		HP_lr=0.01 
 def lr_decay(optimizer, epoch, decay_rate, init_lr):
     lr = init_lr * ((1-decay_rate)**epoch)
     print " Learning rate is setted as:", lr
     for param_group in optimizer.param_groups:
-        param_group['lr'] = lr
+        param_group['lr'] = lr   # 得到学习率：optimizer.param_groups[0]["lr"] 
     return optimizer
 
 
@@ -249,18 +253,21 @@ def train(data, save_model_dir, seg=True):
     save_data_name = save_model_dir +".dset"
     save_data_setting(data, save_data_name)  #保存数据：pickle.dump(new_data, fp)
 	
-    model = SeqModel(data)
+    model = SeqModel(data) #!!!
 	
     print "finished built model."
     loss_function = nn.NLLLoss()
-    parameters = filter(lambda p: p.requires_grad, model.parameters())
-    optimizer = optim.SGD(parameters, lr=data.HP_lr, momentum=data.HP_momentum)
+	#筛选出需要需要梯度的变量
+    parameters = filter(lambda p: p.requires_grad, model.parameters())   #filter(func, seq)    提取出seq中能使func为true的元素序列
+    optimizer = optim.SGD(parameters, lr=data.HP_lr, momentum=data.HP_momentum) #动量因子
     best_dev = -1
     ## start training
     for idx in range(data.HP_iteration):   #HP_iteration=50
         epoch_start = time.time()
         temp_start = epoch_start
         print("Epoch: %s/%s" %(idx,data.HP_iteration))
+		
+		#调整学习率
         optimizer = lr_decay(optimizer, idx, data.HP_lr_decay, data.HP_lr)
         instance_count = 0
         sample_id = 0

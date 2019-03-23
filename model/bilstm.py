@@ -25,11 +25,11 @@ class BiLSTM(nn.Module):
         self.batch_size = data.HP_batch_size
         self.char_hidden_dim = 0
         if self.use_char:
-            self.char_hidden_dim = data.HP_char_hidden_dim
-            self.char_embedding_dim = data.char_emb_dim
+            self.char_hidden_dim = data.HP_char_hidden_dim  #50
+            self.char_embedding_dim = data.char_emb_dim  #30
             if data.char_features == "CNN":
                 self.char_feature = CharCNN(data.char_alphabet.size(), self.char_embedding_dim, self.char_hidden_dim, data.HP_dropout, self.gpu)
-            elif data.char_features == "LSTM":
+            elif data.char_features == "LSTM":  #char_features = "LSTM" 
                 self.char_feature = CharBiLSTM(data.char_alphabet.size(), self.char_embedding_dim, self.char_hidden_dim, data.HP_dropout, self.gpu)
             else:
                 print "Error char feature selection, please check parameter data.char_features (either CNN or LSTM)."

@@ -10,12 +10,15 @@ import torch.nn.functional as F
 from torch.nn.utils.rnn import pack_padded_sequence, pad_packed_sequence
 import numpy as np
 
+
+#from： self.char_feature = CharBiLSTM(   # self=BiLSTM		30						50					0.5	
+							#data.char_alphabet.size(), self.char_embedding_dim, self.char_hidden_dim, data.HP_dropout, self.gpu)
 class CharBiLSTM(nn.Module):
     def __init__(self, alphabet_size, embedding_dim, hidden_dim, dropout, gpu, bidirect_flag = True):
         super(CharBiLSTM, self).__init__()
         print "build batched char bilstm..."
         self.gpu = gpu
-        self.hidden_dim = hidden_dim
+        self.hidden_dim = hidden_dim    # LSTM的hidden dimension到底是什么？？
         if bidirect_flag:
             self.hidden_dim = hidden_dim // 2
         self.char_drop = nn.Dropout(dropout)
