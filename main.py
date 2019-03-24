@@ -269,6 +269,7 @@ def train(data, save_model_dir, seg=True):
 		
 		#调整学习率
         optimizer = lr_decay(optimizer, idx, data.HP_lr_decay, data.HP_lr)
+		
         instance_count = 0
         sample_id = 0
         sample_loss = 0

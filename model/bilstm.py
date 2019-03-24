@@ -68,6 +68,7 @@ class BiLSTM(nn.Module):
         # self.lstm = nn.LSTM(lstm_input, lstm_hidden, num_layers=self.lstm_layer, batch_first=True, bidirectional=self.bilstm_flag)
 
         # The linear layer that maps from hidden state space to tag space
+		#对输入数据做线性变换
         self.hidden2tag = nn.Linear(data.HP_hidden_dim, data.label_alphabet_size)
 
         if self.gpu:
@@ -80,7 +81,7 @@ class BiLSTM(nn.Module):
                 self.backward_lstm = self.backward_lstm.cuda()
             self.hidden2tag = self.hidden2tag.cuda()
 
-
+	#均匀分布中抽取样本
     def random_embedding(self, vocab_size, embedding_dim):
         pretrain_emb = np.empty([vocab_size, embedding_dim])
         scale = np.sqrt(3.0 / embedding_dim)

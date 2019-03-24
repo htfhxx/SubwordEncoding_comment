@@ -17,7 +17,7 @@ class BiLSTM_CRF(nn.Module):
         super(BiLSTM_CRF, self).__init__()
         print "build batched lstmcrf..."
         self.gpu = data.HP_gpu
-        ## add two more label for downlayer lstm, use original label size for CRF
+        ## add two more label for downlayer lstm, use original label size for CRF ？？？？？？？？？？？？？？？？？
         label_size = data.label_alphabet_size
         data.label_alphabet_size += 2
         self.lstm = BiLSTM(data)

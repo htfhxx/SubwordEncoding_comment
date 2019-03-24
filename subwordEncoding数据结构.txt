@@ -47,7 +47,23 @@ bilstmcrf.py:
 
 bilstm.py:
 	self.char_feature = CharBiLSTM(data.char_alphabet.size(), self.char_embedding_dim, self.char_hidden_dim, data.HP_dropout, self.gpu)
+	self.word_embeddings     pretrain_word_embedding    [word_alphabet.size() , embedding_dim]
+	self.biword_embeddings    pretrain_biword_embedding
+	lstm_input = self.embedding_dim + self.char_hidden_dim + data.biword_emb_dim
+
+	self.forward_lstm = LatticeLSTM()      #网格LSTM
+	self.backward_lstm
+
+	hidden2tag   #线性变换层？
+
+crf.py:
+	self.transitions = nn.Parameter(init_transitions)	
 	
+charbilstm.py:
+	self.hidden_dim
+	self.char_drop=nn.Dropout(dropout) #dropout=0.5
+	self.char_embeddings   #均匀分布中抽取样本 ??????????
+	self.char_lstm= nn.LSTM()
 
 
 

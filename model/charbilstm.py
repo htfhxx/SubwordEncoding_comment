@@ -22,20 +22,23 @@ class CharBiLSTM(nn.Module):
         if bidirect_flag:
             self.hidden_dim = hidden_dim // 2
         self.char_drop = nn.Dropout(dropout)
-        self.char_embeddings = nn.Embedding(alphabet_size, embedding_dim)
+		#保存了固定字典和大小的简单查找表  		嵌入字典的大小*每个嵌入向量的大小
+        self.char_embeddings = nn.Embedding(alphabet_size, embedding_dim) 
+		#均匀分布中抽取样本 ??????????
         self.char_embeddings.weight.data.copy_(torch.from_numpy(self.random_embedding(alphabet_size, embedding_dim)))
+		#将一个多层的 (LSTM) 应用到输入序列
         self.char_lstm = nn.LSTM(embedding_dim, self.hidden_dim, num_layers=1, batch_first=True, bidirectional=bidirect_flag)
         if self.gpu:
             self.char_drop = self.char_drop.cuda()
             self.char_embeddings = self.char_embeddings.cuda()
             self.char_lstm = self.char_lstm.cuda()
 
-
+	#from: self.char_embeddings.weight.data.copy_(torch.from_numpy(self.random_embedding(alphabet_size, embedding_dim)))
     def random_embedding(self, vocab_size, embedding_dim):
         pretrain_emb = np.empty([vocab_size, embedding_dim])
         scale = np.sqrt(3.0 / embedding_dim)
         for index in range(vocab_size):
-            pretrain_emb[index,:] = np.random.uniform(-scale, scale, [1, embedding_dim])
+            pretrain_emb[index,:] = np.random.uniform(-scale, scale, [1, embedding_dim])  #从均匀分布中抽取样本
         return pretrain_emb
 
 
