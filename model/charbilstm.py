@@ -32,7 +32,8 @@ class CharBiLSTM(nn.Module):
             self.char_drop = self.char_drop.cuda()
             self.char_embeddings = self.char_embeddings.cuda()
             self.char_lstm = self.char_lstm.cuda()
-
+			
+	#均匀分布中抽取样本 
 	#from: self.char_embeddings.weight.data.copy_(torch.from_numpy(self.random_embedding(alphabet_size, embedding_dim)))
     def random_embedding(self, vocab_size, embedding_dim):
         pretrain_emb = np.empty([vocab_size, embedding_dim])

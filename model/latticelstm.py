@@ -34,13 +34,13 @@ class WordLSTMCell(nn.Module):
         """
         Initialize parameters following the way proposed in the paper.
         """
-        init.orthogonal(self.weight_ih.data)
-        weight_hh_data = torch.eye(self.hidden_size)
-        weight_hh_data = weight_hh_data.repeat(1, 3)
+        init.orthogonal(self.weight_ih.data)  #用（半）正交矩阵填充输入的张量，输入张量必须至少是2维的
+        weight_hh_data = torch.eye(self.hidden_size)  #返回一个2维张量，对角线位置全1，其它位置全0
+        weight_hh_data = weight_hh_data.repeat(1, 3)  #沿着指定的维度重复tensor，以weight_hh_data为单位x，1行x,3列x
         self.weight_hh.data.set_(weight_hh_data)
         # The bias is just set to zero vectors.
         if self.use_bias:
-            init.constant(self.bias.data, val=0)
+            init.constant(self.bias.data, val=0)  #用val的值填充输入的张量或变量
 
     def forward(self, input_, hx):
         """
@@ -104,8 +104,8 @@ class MultiInputLSTMCell(nn.Module):
         init.orthogonal(self.weight_ih.data)
         init.orthogonal(self.alpha_weight_ih.data)
 
-        weight_hh_data = torch.eye(self.hidden_size)
-        weight_hh_data = weight_hh_data.repeat(1, 3)
+        weight_hh_data = torch.eye(self.hidden_size) #返回一个2维张量，对角线位置全1，其它位置全0
+        weight_hh_data = weight_hh_data.repeat(1, 3)  
         self.weight_hh.data.set_(weight_hh_data)
 
         alpha_weight_hh_data = torch.eye(self.hidden_size)
@@ -169,6 +169,8 @@ class MultiInputLSTMCell(nn.Module):
         return s.format(name=self.__class__.__name__, **self.__dict__)
 
 
+
+#BiLSTM.forward_lstm = LatticeLSTM(lstm_input, lstm_hidden, data.gaz_dropout, data.gaz_alphabet.size(), data.gaz_emb_dim, data.pretrain_gaz_embedding, True, data.HP_fix_gaz_emb, self.gpu)
 class LatticeLSTM(nn.Module):
 
     """A module that runs multiple steps of LSTM."""
@@ -189,10 +191,11 @@ class LatticeLSTM(nn.Module):
         if fix_word_emb:
             self.word_emb.weight.requires_grad = False
         
-        self.word_dropout = nn.Dropout(word_drop)
+        self.word_dropout = nn.Dropout(word_drop)  #=data.gaz_dropout=0.5
 
         self.rnn = MultiInputLSTMCell(input_dim, hidden_dim)
         self.word_rnn = WordLSTMCell(word_emb_dim, hidden_dim)
+		
         self.left2right = left2right
         if self.gpu:
             self.rnn = self.rnn.cuda()

@@ -47,8 +47,8 @@ bilstmcrf.py:
 
 bilstm.py:
 	self.char_feature = CharBiLSTM(data.char_alphabet.size(), self.char_embedding_dim, self.char_hidden_dim, data.HP_dropout, self.gpu)
-	self.word_embeddings     pretrain_word_embedding    [word_alphabet.size() , embedding_dim]
-	self.biword_embeddings    pretrain_biword_embedding
+	self.word_embeddings = copy_(pretrain_word_embedding)   [word_alphabet.size() , embedding_dim]
+	self.biword_embeddings = copy_(pretrain_biword_embedding)
 	lstm_input = self.embedding_dim + self.char_hidden_dim + data.biword_emb_dim
 
 	self.forward_lstm = LatticeLSTM()      #网格LSTM
@@ -57,7 +57,7 @@ bilstm.py:
 	hidden2tag   #线性变换层？
 
 crf.py:
-	self.transitions = nn.Parameter(init_transitions)	
+	self.transitions = nn.Parameter(init_transitions) = torch.zeros(self.tagset_size+2, self.tagset_size+2)	
 	
 charbilstm.py:
 	self.hidden_dim
@@ -66,6 +66,24 @@ charbilstm.py:
 	self.char_lstm= nn.LSTM()
 
 
+latticelstm.py:							 MultiInputLSTMCell()   WordLSTMCell()
+LatticeLSTM()：
+	self.word_emb = copy_(pretrain_word_emb)
+        self.rnn = MultiInputLSTMCell(input_dim, hidden_dim)
+        self.word_rnn = WordLSTMCell(word_emb_dim, hidden_dim)
+
+WordLSTMCell()
+	self.weight_ih = nn.Parameter(torch.FloatTensor(input_size, 3 * hidden_size))  
+	self.weight_hh = nn.Parameter(torch.FloatTensor(hidden_size, 3 * hidden_size))
+	self.bias = nn.Parameter(torch.FloatTensor(3 * hidden_size))
+
+MultiInputLSTMCell()
+	self.weight_ih = nn.Parameter(torch.FloatTensor(input_size, 3 * hidden_size))
+        self.weight_hh = nn.Parameter(torch.FloatTensor(hidden_size, 3 * hidden_size))
+	self.alpha_weight_ih = nn.Parameter(torch.FloatTensor(input_size, hidden_size))
+	self.alpha_weight_hh = nn.Parameter(torch.FloatTensor(hidden_size, hidden_size))
+	self.bias = nn.Parameter(torch.FloatTensor(3 * hidden_size))
+	self.alpha_bias = nn.Parameter(torch.FloatTensor(hidden_size))
 
 
 

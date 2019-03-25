@@ -174,7 +174,7 @@ def evaluate(data, model, name):
     acc, p, r, f = get_ner_fmeasure(gold_results, pred_results, data.tagScheme)
     return speed, acc, p, r, f, pred_results  
 
-
+# gaz_list,  batch_word, batch_biword, batch_wordlen, batch_wordrecover, batch_char, batch_charlen, batch_charrecover, batch_label, mask             = batchify_with_label(instance, data.HP_gpu)
 def batchify_with_label(input_batch_list, gpu, volatile_flag=False):
     """
         input: list of words, chars and labels, various length. [[words,biwords,chars,gaz, labels],[words,biwords,chars,labels],...]
@@ -253,7 +253,7 @@ def train(data, save_model_dir, seg=True):
     save_data_name = save_model_dir +".dset"
     save_data_setting(data, save_data_name)  #保存数据：pickle.dump(new_data, fp)
 	
-    model = SeqModel(data) #!!!
+    model = SeqModel(data) #！！！！！！！！！！！！！！！！！！
 	
     print "finished built model."
     loss_function = nn.NLLLoss()
@@ -280,8 +280,8 @@ def train(data, save_model_dir, seg=True):
         random.shuffle(data.train_Ids)
 		
         ## set model in train model
-        model.train()
-        model.zero_grad()
+        model.train()  #将module设置为 training mode。
+        model.zero_grad()  #将 module 中的所有模型参数的梯度设置为0
         batch_size = 1 ## current only support batch size = 1 to compulate and accumulate to data.HP_batch_size update weights
         batch_id = 0
         train_num = len(data.train_Ids)
