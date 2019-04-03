@@ -16,7 +16,7 @@ import numpy as np
 class CharBiLSTM(nn.Module):
     def __init__(self, alphabet_size, embedding_dim, hidden_dim, dropout, gpu, bidirect_flag = True):
         super(CharBiLSTM, self).__init__()
-        print "build batched char bilstm..."
+        print ("build batched char bilstm...")
         self.gpu = gpu
         self.hidden_dim = hidden_dim    # LSTM的hidden dimension到底是什么？？
         if bidirect_flag:
@@ -55,7 +55,7 @@ class CharBiLSTM(nn.Module):
         batch_size = input.size(0)
         char_embeds = self.char_drop(self.char_embeddings(input))
         char_hidden = None
-        pack_input = pack_padded_sequence(char_embeds, seq_lengths, True)
+        pack_input = pack_padded_sequence(char_embeds, seq_lengths, True)   #将一个 填充过的变长序列 压紧
         char_rnn_out, char_hidden = self.char_lstm(pack_input, char_hidden)
         char_rnn_out, _ = pad_packed_sequence(char_rnn_out)
         return char_hidden[0].transpose(1,0).contiguous().view(batch_size,-1)

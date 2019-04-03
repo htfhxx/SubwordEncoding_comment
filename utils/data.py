@@ -5,10 +5,10 @@
 # @Last Modified time: 2018-01-29 15:26:51
 import sys
 import numpy as np
-from alphabet import Alphabet
-from functions import *
-import cPickle as pickle
-from gazetteer import Gazetteer
+from utils.alphabet import Alphabet
+from utils.functions import *
+import pickle as pickle
+from utils.gazetteer import Gazetteer
 
 
 START = "</s>"
@@ -155,18 +155,18 @@ class Data:
 	#调用于 data.build_alphabet(train_file)
     def build_alphabet(self, input_file):
         in_lines = open(input_file,'r').readlines()  
-        for idx in xrange(len(in_lines)):
+        for idx in range(len(in_lines)):
             line = in_lines[idx]   #遍历每行，line为字符串
             if len(line) > 2:
                 pairs = line.strip().split()
-                word = pairs[0].decode('utf-8')
+                word = pairs[0]     #.decode('utf-8')
                 if self.number_normalized:
                     word = normalize_word(word)  #数字转化为0
                 label = pairs[-1]
                 self.label_alphabet.add(label)
                 self.word_alphabet.add(word)
                 if idx < len(in_lines) - 1 and len(in_lines[idx+1]) > 2:
-                    biword = word + in_lines[idx+1].strip().split()[0].decode('utf-8')
+                    biword = word + in_lines[idx+1].strip().split()[0]    #.decode('utf-8')
                 else:
                     biword = word + NULLKEY
                 self.biword_alphabet.add(biword)
@@ -195,12 +195,12 @@ class Data:
         if gaz_file:
             fins = open(gaz_file, 'r').readlines()
             for fin in fins:  #遍历每行
-                fin = fin.strip().split()[0].decode('utf-8')
+                fin = fin.strip().split()[0]#.decode('utf-8')
                 if fin:
                     self.gaz.insert(fin, "one_source")
-            print "Load gaz file: ", gaz_file, " total size:", self.gaz.size()
+            print( "Load gaz file: ", gaz_file, " total size:", self.gaz.size())
         else:
-            print "Gaz file is None, load nothing"
+            print ("Gaz file is None, load nothing")
 
 	#调用来自：data.build_gaz_alphabet(train_file)
     def build_gaz_alphabet(self, input_file):
@@ -208,7 +208,7 @@ class Data:
         word_list = []
         for line in in_lines:
             if len(line) > 3:
-                word = line.split()[0].decode('utf-8')
+                word = line.split()[0]#  .decode('utf-8')
                 if self.number_normalized:
                     word = normalize_word(word)
                 word_list.append(word)   #每行的字放入word_list
@@ -220,7 +220,7 @@ class Data:
                         # print entity, self.gaz.searchId(entity),self.gaz.searchType(entity)
                         self.gaz_alphabet.add(entity)
                 word_list = []
-        print "gaz alphabet size:", self.gaz_alphabet.size()
+        print ("gaz alphabet size:", self.gaz_alphabet.size())
 
 	#使data.word_alphabet.keep_growing = False
     def fix_alphabet(self):
@@ -232,16 +232,16 @@ class Data:
 
 	#调用自：data.build_word_pretrain_emb(char_emb)
     def build_word_pretrain_emb(self, emb_path):
-        print "build word pretrain emb..."
-		#return pretrain_emb, embedd_dim
+        print( "build word pretrain emb...")
+        #return pretrain_emb, embedd_dim
         self.pretrain_word_embedding, self.word_emb_dim = build_pretrain_embedding(emb_path, self.word_alphabet, self.word_emb_dim, self.norm_word_emb)
 	
     def build_biword_pretrain_emb(self, emb_path):
-        print "build biword pretrain emb..."
+        print ("build biword pretrain emb...")
         self.pretrain_biword_embedding, self.biword_emb_dim = build_pretrain_embedding(emb_path, self.biword_alphabet, self.biword_emb_dim, self.norm_biword_emb)
 
     def build_gaz_pretrain_emb(self, emb_path):
-        print "build gaz pretrain emb..."
+        print( "build gaz pretrain emb...")
         self.pretrain_gaz_embedding, self.gaz_emb_dim = build_pretrain_embedding(emb_path, self.gaz_alphabet,  self.gaz_emb_dim, self.norm_gaz_emb)
 
 	#调用来自：data.generate_instance_with_gaz(train_file,'train')

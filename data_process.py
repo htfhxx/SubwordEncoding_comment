@@ -6,12 +6,16 @@ import re
 DATA_PATH='data'
 
 #MSR
-TRAIN_MSR='data/original_data/msr_training.utf8'
-TEST_MSR='data/original_data/msr_test_gold.utf8'
+#TRAIN_MSR='data/original_data/msr_training.utf8'
+#TEST_MSR='data/original_data/msr_test_gold.utf8'
+
+#PKU
+TRAIN_MSR='data/original_data/pku_training.utf8'
+TEST_MSR='data/original_data/pku_test_gold.utf8'
 
 #BALA(test)
-TRAIN_BALA='data/original_data/bala_training.utf8'
-TEST_BALA='data/original_data/bala_test_gold.utf8'
+#TRAIN_BALA='data/original_data/bala_training.utf8'
+#TEST_BALA='data/original_data/bala_test_gold.utf8'
 
 CHINESE_IDIOMS='data/original_data/idioms'
 
@@ -27,7 +31,8 @@ def strQ2B(ustring):
             inside_code = 32
         elif (inside_code >= 65281 and inside_code <= 65374):  # 全角字符（除空格）根据关系转化
             inside_code -= 65248
-        rstring += unichr(inside_code)
+        #rstring += unichr(inside_code)
+        rstring += chr(inside_code)
     return rstring
 
 #全角转半角、成语替换为'I',数字替换为0,字母替换为'X'
@@ -59,12 +64,12 @@ def preprocess(input,output):
             for sent in sents:
                 fout.write('  '.join(sent))
                 fout.write('\n')
-    print 'replaced idioms count:%d' % count_idioms
+    print( 'replaced idioms count:%d' % count_idioms)
 
 
 def split(dataset): #划分出验证集
     dataset=os.path.join(DATA_PATH,dataset)
-    print 'split '+dataset
+    print('split '+dataset )
     with codecs.open(dataset+'_train_all','r','utf-8') as f:
         lines = f.readlines()
         idx = int(len(lines)*0.9)
@@ -100,12 +105,13 @@ def sentence_2_word(filename=None):
                     for i in range(len(tag)):
                         fo.write(word[i]+' '+tag[i]+'\n')
                 fo.write('\n')
-	f.close()
-	os.remove(filename+'_tmp')
+    f.close()
+    os.remove(filename+'_tmp')
 				
 
 if __name__ == '__main__':
     '''
+    bala
 	#预处理
     preprocess(TRAIN_BALA,'bala_train_all') 
     preprocess(TEST_BALA,'bala_test_tmp')
@@ -116,6 +122,9 @@ if __name__ == '__main__':
     sentence_2_word('bala_dev')		 
     sentence_2_word('bala_test')	
 	'''
+
+    '''
+    msr
     #预处理
     preprocess(TRAIN_MSR,'msr_train_all') 
     preprocess(TEST_MSR,'msr_test_tmp')
@@ -125,6 +134,18 @@ if __name__ == '__main__':
     sentence_2_word('msr_train')		 
     sentence_2_word('msr_dev')		 
     sentence_2_word('msr_test')	
+    
+    '''
+    #pku
+    #预处理
+    preprocess(TRAIN_MSR,'pku_train_all')
+    preprocess(TEST_MSR,'pku_test_tmp')
+	#划分验证集
+    split('pku')
+    #处理格式
+    sentence_2_word('pku_train')
+    sentence_2_word('pku_dev')
+    sentence_2_word('pku_test')
 	
 
 

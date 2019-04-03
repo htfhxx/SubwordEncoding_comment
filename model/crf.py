@@ -30,7 +30,7 @@ class CRF(nn.Module):
 
     def __init__(self, tagset_size, gpu):
         super(CRF, self).__init__()
-        print "build batched crf..."
+        print ("build batched crf...")
         self.gpu = gpu
         # Matrix of transition parameters.  Entry i,j is the score of transitioning *to* i *from* j.
         self.average_batch = False
@@ -70,7 +70,8 @@ class CRF(nn.Module):
         scores = scores.view(seq_len, batch_size, tag_size, tag_size)
         # build iter
         seq_iter = enumerate(scores)
-        _, inivalues = seq_iter.next()  # bat_size * from_target_size * to_target_size
+        #_, inivalues = seq_iter.next()     # bat_size * from_target_size * to_target_size
+        _, inivalues = seq_iter.__next__()
         # only need start from start_tag
         partition = inivalues[:, START_TAG, :].clone().view(batch_size, tag_size, 1)  # bat_size * to_target_size
 
@@ -138,9 +139,11 @@ class CRF(nn.Module):
         ##  reverse mask (bug for mask = 1- mask, use this as alternative choice)
         # mask = 1 + (-1)*mask
         mask =  (1 - mask.long()).byte()
-        _, inivalues = seq_iter.next()  # bat_size * from_target_size * to_target_size
+        _, inivalues = seq_iter.__next__()  # bat_size * from_target_size * to_target_size
         # only need start from start_tag
-        partition = inivalues[:, START_TAG, :].clone().view(batch_size, tag_size, 1)  # bat_size * to_target_size
+        #partition = inivalues[:, START_TAG, :].clone().view(batch_size, tag_size, 1)  # bat_size * to_target_size
+        partition = inivalues[:, START_TAG, :].clone().view(batch_size, tag_size)
+
         partition_history.append(partition)
         # iter over last scores
         for idx, cur_values in seq_iter:
@@ -155,8 +158,13 @@ class CRF(nn.Module):
             ## set padded label as 0, which will be filtered in post processing
             cur_bp.masked_fill_(mask[idx].view(batch_size, 1).expand(batch_size, tag_size), 0) 
             back_points.append(cur_bp)
+
+
         ### add score to final STOP_TAG
-        partition_history = torch.cat(partition_history).view(seq_len, batch_size,-1).transpose(1,0).contiguous() ## (batch_size, seq_len. tag_size)
+        partition_history = torch.cat(partition_history).\
+            view(seq_len, batch_size,-1).\
+            transpose(1,0).\
+            contiguous() ## (batch_size, seq_len. tag_size)
         ### get the last position for each setences, and select the last partitions using gather()
         last_position = length_mask.view(batch_size,1,1).expand(batch_size, 1, tag_size) -1
         last_partition = torch.gather(partition_history, 1, last_position).view(batch_size,tag_size,1)

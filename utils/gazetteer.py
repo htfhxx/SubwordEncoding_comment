@@ -1,5 +1,5 @@
 #coding=utf-8
-from trie import Trie 
+from utils.trie import Trie
 
 class Gazetteer:
     #from:   self.gaz_lower = False    self.gaz = Gazetteer(self.gaz_lower)
@@ -42,7 +42,7 @@ class Gazetteer:
         string = self.space.join(word_list)
         if string in self.ent2type:
             return self.ent2type[string]
-        print  "Error in finding entity type at gazetteer.py, exit program! String:", string
+        print  ("Error in finding entity type at gazetteer.py, exit program! String:", string)
         exit(0)
 
     def size(self):

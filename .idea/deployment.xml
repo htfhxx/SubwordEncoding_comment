@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" autoUpload="Always" serverName="10.60.1.83_gpu">
+    <serverData>
+      <paths name="10.60.1.81_gpu">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/SubwordEncoding_comment" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="10.60.1.83_gpu">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/SubwordEncoding_comment" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="yuxiaoming@10.60.1.81:22">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/home/yuxiaoming/huotengfei/SubwordEncoding_comment" local="$PROJECT_DIR$" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="yuxiaoming@10.60.1.81:22 (1)">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/home/yuxiaoming/huotengfei/SubwordEncoding_comment" local="$PROJECT_DIR$" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="yuxiaoming@10.60.1.83:22">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/home/yuxiaoming/huotengfei/SubwordEncoding_comment" local="$PROJECT_DIR$" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="yuxiaoming@10.60.1.83:22 (1)">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/home/yuxiaoming/huotengfei/SubwordEncoding_comment" local="$PROJECT_DIR$" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+    <option name="myAutoUpload" value="ALWAYS" />
+  </component>
+</project>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="42882693-b58b-450c-9854-60c5031e5970" name="10.60.1.81_gpu" url="http://10.60.1.81">
+        <fileTransfer host="10.60.1.81" port="22" rootFolder="/home/yuxiaoming/huotengfei/" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions controlEncoding="utf-8" dataProtectionLevel="Private" muteSftpMessages="true" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+      <webServer id="fce1504c-a27f-4af2-b93e-ebfa92623728" name="10.60.1.83_gpu" url="http://10.60.1.83">
+        <fileTransfer host="10.60.1.83" port="22" rootFolder="/home/yuxiaoming/huotengfei" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

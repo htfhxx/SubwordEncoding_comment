@@ -4,7 +4,7 @@ data  ->
 	 biword_alphabet  =Alphabet('biword')		#放入每行字+下一行字组成的bigram
 	 char_alphabet   =Alphabet('character')		#放入每行 中的字
 	 label_alphabet  = Alphabet('label', True)     # 放入每行字的标签 B-SEG/E-SEG...
-	 gaz_alphabet = Alphabet('gaz')			#训练集等在gaz_file中匹配到的词
+	 gaz_alphabet = Alphabet('gaz')			#训练集等在gaz_file中匹配到的词 （包括训练集测试集和验证集）
 	
 	#普通变量
 	word_alphabet_size、biword_alphabet_size...
@@ -86,6 +86,64 @@ MultiInputLSTMCell()
 	self.alpha_bias = nn.Parameter(torch.FloatTensor(hidden_size))
 
 
+build batched lstmcrf...
+build batched bilstm...
+build LatticeLSTM...  forward , Fix emb: False  gaz drop: 0.5
+load pretrain word emb... (1100, 50)
+build LatticeLSTM...  backward , Fix emb: False  gaz drop: 0.5
+load pretrain word emb... (1100, 50)
+build batched crf...
+
+
+
+
+gaz_list: 子词列表		    所有的子词list，以字符为单位([])
+word_seq_tensor(batch_word)：	    所有的词
+biword_seq_tensor(batch_biword)：   所有bigram
+word_seq_tensor(batch_wordlen):     batch_size个句子，每句max_sent_len个词                           (batch_size, max_sent_len) Variable
+	#tensor([ batch_size])
+word_seq_lengths(batch_wordrecover):batch_size个句子的长度					     (batch_size,1) Tensor
+	#batch_wordrecover: tensor([ 0])
+char_seq_tensor(batch_char):        batch_size个句子，每句max_sent_len个词，每个字长度为max_word_len (batch_size*max_sent_len, max_word_len) Variable
+char_seq_lengths(batch_charlen):    batch_size个句子，每句max_sent_len个词，这些字符的长度           (batch_size*max_sent_len,1) Tensor
+	#tensor([[ 163],[   1]])
+char_seq_recover(batch_charrecover):	recover char sequence order 				     (batch_size*max_sent_len,1)
+	#batch_charrecover: tensor([[ 0],[ 1]])
+label_seq_tensor(batch_label):									     (batch_size, max_sent_len)
+mask:				所有的label list，以字符为单位([])										(batch_size, max_sent_len) 
+
+
+
+
+----main.py
+	loss, tag_seq = bilstmcrf.neg_log_likelihood_loss()       ----bilstmcrf.py
+
+----bilstmcrf.py
+	outs = bilstmcrf.bilstm.get_output_score()	    ----bilstm.py   
+	total_loss = self.crf.neg_log_likelihood_loss(outs, mask, batch_label)
+	scores, tag_seq = self.crf._viterbi_decode(outs, mask)
+	return total_loss, tag_seq
+
+----bilstm.py     
+	get_output_score()
+		lstm_out=bilstm.get_lstm_features()	       ---get_lstm_features()
+		outputs = self.hidden2tag(lstm_out)
+		return outputs
+	get_lstm_features()
+		word_embs biword_embs
+		char_features=bilstm.CharBiLSTM.get_last_hiddens     ----charbilstm.py
+		word_embs = torch.cat([word_embs, char_features], 2)
+		lstm_out, hidden = self.forward_lstm(word_embs, gaz_list, hidden)    ---self.forward_lstm=LatticeLSTM(..)
+		backward_lstm_out, backward_hidden = self.backward_lstm(word_embs, gaz_list, backward_hidden)
+		return lstm_out
+
+
+
+
+----charbilstm.py
+	get_last_hiddens()
+		char_rnn_out, char_hidden = self.char_lstm(pack_input, char_hidden)
+							
 
 
 
@@ -93,20 +151,18 @@ MultiInputLSTMCell()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+tag_seq:
+tensor([[ 5,  6,  6,  5,  6,  6,  0,  0,  1,  0,  6,  4,  0,  6,
+          6,  6,  5,  1,  1,  5,  5,  0,  6,  6,  5,  0,  5,  0,
+          5,  5,  6,  6,  5,  0,  6,  6,  6,  6,  0,  6,  5,  6,
+          6,  5,  6,  6,  0,  5,  6,  6,  6,  6,  6,  5,  6,  6,
+          6,  4,  6,  5,  5,  6,  6,  5,  6,  5,  1,  6,  5,  6,
+          1,  5,  6,  5,  6,  6,  6,  6,  5,  6,  0,  4,  6,  6,
+          6,  6,  5,  6,  6,  5,  1,  6,  6,  4,  5,  1,  0,  5,
+          6,  5,  4,  5,  0,  0,  1,  1,  5,  5,  1,  1,  6,  0,
+          1,  1,  0,  5,  4,  4,  4,  1,  1,  0,  1,  0,  5,  5,
+          5,  4,  0,  6,  6,  5,  2,  6,  6,  6,  6,  5,  6,  6,
+          6,  6,  6,  6,  0,  5,  0,  6,  0,  0,  5,  0,  0,  6,
+          6,  2,  5,  6,  6,  2,  1,  6,  6]])
 
 

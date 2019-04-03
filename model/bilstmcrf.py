@@ -9,13 +9,13 @@ import torch.autograd as autograd
 import torch.nn as nn
 import torch.nn.functional as F
 import numpy as np
-from bilstm import BiLSTM
-from crf import CRF
+from model.bilstm import BiLSTM
+from model.crf import CRF
 
 class BiLSTM_CRF(nn.Module):
     def __init__(self, data):
         super(BiLSTM_CRF, self).__init__()
-        print "build batched lstmcrf..."
+        print( "build batched lstmcrf...")
         self.gpu = data.HP_gpu
         ## add two more label for downlayer lstm, use original label size for CRF ？？？？？？？？？？？？？？？？？
         label_size = data.label_alphabet_size
@@ -23,7 +23,7 @@ class BiLSTM_CRF(nn.Module):
         self.lstm = BiLSTM(data)
         self.crf = CRF(label_size, self.gpu)
 
-
+#loss, tag_seq = model.neg_log_likelihood_loss()
     def neg_log_likelihood_loss(self, gaz_list, word_inputs, biword_inputs, word_seq_lengths,  char_inputs, char_seq_lengths, char_seq_recover, batch_label, mask):
         outs = self.lstm.get_output_score(gaz_list, word_inputs, biword_inputs, word_seq_lengths,  char_inputs, char_seq_lengths, char_seq_recover)
         batch_size = word_inputs.size(0)

@@ -1,4 +1,4 @@
-gaz alphabet size# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 # @Author: Max
 # @Date:   2018-01-19 11:33:37
 # @Last Modified by:   Jie Yang,     Contact: jieynlp@gmail.com
@@ -70,7 +70,7 @@ class Alphabet:
         return len(self.instances) + 1
 
     def iteritems(self):
-        return self.instance2index.iteritems()
+        return self.instance2index.items()   #iteritems
 
     def enumerate_items(self, start=1):
         if start < 1 or start >= self.size():

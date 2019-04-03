@@ -10,14 +10,15 @@ import torch.nn.functional as F
 import numpy as np
 from torch.nn.utils.rnn import pack_padded_sequence, pad_packed_sequence
 # from kblayer import GazLayer
-from charbilstm import CharBiLSTM
-from charcnn import CharCNN
-from latticelstm import LatticeLSTM
+
+from model.charbilstm import CharBiLSTM
+from model.charcnn import CharCNN
+from model.latticelstm import LatticeLSTM
 
 class BiLSTM(nn.Module):
     def __init__(self, data):
         super(BiLSTM, self).__init__()
-        print "build batched bilstm..."
+        print ("build batched bilstm...")
         self.use_bigram = data.use_bigram
         self.gpu = data.HP_gpu
         self.use_char = data.HP_use_char
@@ -32,7 +33,7 @@ class BiLSTM(nn.Module):
             elif data.char_features == "LSTM":  #char_features = "LSTM" 
                 self.char_feature = CharBiLSTM(data.char_alphabet.size(), self.char_embedding_dim, self.char_hidden_dim, data.HP_dropout, self.gpu)
             else:
-                print "Error char feature selection, please check parameter data.char_features (either CNN or LSTM)."
+                print( "Error char feature selection, please check parameter data.char_features (either CNN or LSTM).")
                 exit(0)
         self.embedding_dim = data.word_emb_dim
         self.hidden_dim = data.HP_hidden_dim
@@ -63,6 +64,9 @@ class BiLSTM(nn.Module):
         if self.use_bigram:
             lstm_input += data.biword_emb_dim
         self.forward_lstm = LatticeLSTM(lstm_input, lstm_hidden, data.gaz_dropout, data.gaz_alphabet.size(), data.gaz_emb_dim, data.pretrain_gaz_embedding, True, data.HP_fix_gaz_emb, self.gpu)
+
+
+        #后向Lattice
         if self.bilstm_flag:
             self.backward_lstm = LatticeLSTM(lstm_input, lstm_hidden, data.gaz_dropout, data.gaz_alphabet.size(), data.gaz_emb_dim, data.pretrain_gaz_embedding, False, data.HP_fix_gaz_emb, self.gpu)
         # self.lstm = nn.LSTM(lstm_input, lstm_hidden, num_layers=self.lstm_layer, batch_first=True, bidirectional=self.bilstm_flag)
@@ -128,7 +132,7 @@ class BiLSTM(nn.Module):
         return lstm_out
 
 
-
+# outs = bilstmcrf.lstm.get_output_score()
     def get_output_score(self, gaz_list,  word_inputs, biword_inputs, word_seq_lengths, char_inputs, char_seq_lengths, char_seq_recover):
         lstm_out = self.get_lstm_features(gaz_list, word_inputs,biword_inputs, word_seq_lengths, char_inputs, char_seq_lengths, char_seq_recover)
         ## lstm_out (batch_size, sent_len, hidden_dim)
