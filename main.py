@@ -148,7 +148,7 @@ def load_data_setting(save_file):
 #									decay_rate：HP_lr_decay=0.05		HP_lr=0.01 
 def lr_decay(optimizer, epoch, decay_rate, init_lr):
     lr = init_lr * ((1-decay_rate)**epoch)
-    #print( " Learning rate is setted as:", lr)
+    print( " Learning rate is setted as:", lr)
     for param_group in optimizer.param_groups:
         param_group['lr'] = lr   # 得到学习率：optimizer.param_groups[0]["lr"] 
     return optimizer
@@ -211,7 +211,7 @@ def batchify_with_label(input_batch_list, gpu, volatile_flag=False):   #input_ba
             label_seq_tensor: (batch_size, max_sent_len)
             mask: (batch_size, max_sent_len) 
     """
-    f=open('data/batch_data.txt','a+')
+    #f=open('data/batch_data.txt','a+')
 
     #从input_batch_list抽取出来words、biwords、chars、 gazs、 labels
     batch_size = len(input_batch_list)
@@ -220,27 +220,31 @@ def batchify_with_label(input_batch_list, gpu, volatile_flag=False):   #input_ba
     chars = [sent[2] for sent in input_batch_list]
     gazs = [sent[3] for sent in input_batch_list]
     labels = [sent[4] for sent in input_batch_list]
+
+    '''
     print("words: ",words   ,file=f)
     print( "biwords: ",biwords   ,file=f)
     print("chars: ",chars   ,file=f)
     print("gazs: ",gazs   ,file=f)
-    print("labels:",labels   ,file=f)
+    print("labels:",labels   ,file=f)   
+    '''
+
 
     word_seq_lengths = torch.LongTensor(list(map(len, words)))
-    print("word_seq_lengths",word_seq_lengths   ,file=f)
+    #print("word_seq_lengths",word_seq_lengths   ,file=f)
     max_seq_len = word_seq_lengths.max()  #句子最大长度
-    print("max_seq_len: ",max_seq_len   ,file=f)
+    #print("max_seq_len: ",max_seq_len   ,file=f)
 
 	#包装一个Tensor，并记录用在它身上的operations
     word_seq_tensor = autograd.Variable(torch.zeros((batch_size, max_seq_len)), volatile =  volatile_flag).long()
-    print("word_seq_tensor: ",word_seq_tensor   ,file=f)
+    #print("word_seq_tensor: ",word_seq_tensor   ,file=f)
     biword_seq_tensor = autograd.Variable(torch.zeros((batch_size, max_seq_len)), volatile =  volatile_flag).long()
-    print("biword_seq_tensor: ",biword_seq_tensor   ,file=f)
+    #print("biword_seq_tensor: ",biword_seq_tensor   ,file=f)
     label_seq_tensor = autograd.Variable(torch.zeros((batch_size, max_seq_len)),volatile =  volatile_flag).long()
-    print("label_seq_tensor: ",label_seq_tensor   ,file=f)
+    #print("label_seq_tensor: ",label_seq_tensor   ,file=f)
 
     mask = autograd.Variable(torch.zeros((batch_size, max_seq_len)),volatile =  volatile_flag).byte()
-    print("mask: ",mask   ,file=f)
+    #print("mask: ",mask   ,file=f)
 
 
 	#初始化的tensor加入数值
@@ -249,51 +253,59 @@ def batchify_with_label(input_batch_list, gpu, volatile_flag=False):   #input_ba
         biword_seq_tensor[idx, :seqlen] = torch.LongTensor(biseq)
         label_seq_tensor[idx, :seqlen] = torch.LongTensor(label)
         #mask[idx, :seqlen] = torch.Tensor([1] * seqlen)
-        for i in range(seqlen):
-            mask[idx, :seqlen] = torch.Tensor([1])
-    print("word_seq_tensor2: ",word_seq_tensor   ,file=f)
-    print("biword_seq_tensor2: ", biword_seq_tensor   ,file=f)
-    print("label_seq_tensor2: ", label_seq_tensor   ,file=f)
-    print("mask2: ", mask   ,file=f)
+        #for i in range(seqlen):
+         #   mask[idx, :seqlen] = torch.Tensor([1])
+        mask[idx, :seqlen] = torch.Tensor([1])
+    #print("word_seq_tensor2: ",word_seq_tensor   ,file=f)
+    #print("biword_seq_tensor2: ", biword_seq_tensor   ,file=f)
+    #print("label_seq_tensor2: ", label_seq_tensor   ,file=f)
+    #print("mask2: ", mask   ,file=f)
 
 	#返回元组 (sorted_tensor, sorted_indices). 	sorted_indices 为原始输入中的下标
     word_seq_lengths, word_perm_idx = word_seq_lengths.sort(0, descending=True)  #对输入张量input沿着指定维按降序排序
-    print("word_seq_tensor3: ", word_seq_tensor   ,file=f)
+    #print("word_seq_tensor3: ", word_seq_tensor   ,file=f)
 
 	#得到排序后的word_seq_tensor、biword_seq_tensor、label_seq_tensor      mask未排序
     word_seq_tensor = word_seq_tensor[word_perm_idx]
     biword_seq_tensor = biword_seq_tensor[word_perm_idx]
     label_seq_tensor = label_seq_tensor[word_perm_idx]
     mask = mask[word_perm_idx]   ## not reorder label
-    print("word_seq_tensor3: ",word_seq_tensor   ,file=f)
-    print("biword_seq_tensor3: ", biword_seq_tensor   ,file=f)
-    print("label_seq_tensor3: ", label_seq_tensor   ,file=f)
-    print("mask3: ", mask   ,file=f)
+    #print("word_seq_tensor3: ",word_seq_tensor   ,file=f)
+    #print("biword_seq_tensor3: ", biword_seq_tensor   ,file=f)
+    #print("label_seq_tensor3: ", label_seq_tensor   ,file=f)
+    #print("mask3: ", mask   ,file=f)
 
     ### deal with char
     # #用0补全，与最长句子对齐 (batch_size, max_seq_len)
     #pad_chars = [chars[idx] + [[0]] * (max_seq_len-len(chars[idx])) for idx in range(len(chars))]
     pad_chars = [torch.tensor(chars[idx]) + torch.tensor([[0]]) * (max_seq_len - len(chars[idx])) for idx in range(len(chars))]
-    print("pad_chars: ",pad_chars   ,file=f)
+    #print("pad_chars: ", pad_chars, file=f)
+
     #length_list = [map(len, pad_char) for pad_char in pad_chars]  #pad_chars的长度list
-    length_list = [pad_char.size() for pad_char in pad_chars]  #pad_chars的长度list
-    print("length_list:",length_list   ,file=f)
-    max_word_len = max(map(max, length_list))
-    print("max_word_len: ",max_word_len   ,file=f)
+    # length_list = [len(pad_char) for pad_char in pad_chars]  #pad_chars的长度list
+    length_list = [len(pad_char) for pad_char in pad_chars]
+
+    #print("length_list:",length_list   ,file=f)
+    #max_word_len = max(map(max, length_list))
+    max_word_len = max(length_list)
+    #print("max_word_len: ",max_word_len   ,file=f)
 
     char_seq_tensor = autograd.Variable(torch.zeros((batch_size, max_seq_len, max_word_len)), volatile =  volatile_flag).long()
-    print("char_seq_tensor:", char_seq_tensor   ,file=f)
+    #print("char_seq_tensor.size():", char_seq_tensor.size(), file=f)
+    #print("char_seq_tensor:", char_seq_tensor   ,file=f)
 
     # pad_chars的长度list
     char_seq_lengths = torch.LongTensor(length_list)
-    print("char_seq_lengths:", char_seq_lengths   ,file=f)
+    #print("char_seq_lengths:", char_seq_lengths   ,file=f)
 
-    #得到char_seq_tensor
+
+    # 得到char_seq_tensor
     for idx, (seq, seqlen) in enumerate(zip(pad_chars, char_seq_lengths)):
-        for idy, (word, wordlen) in enumerate(zip(seq, seqlen)):
-            # print len(word), wordlen
+        for idy, (word) in enumerate(zip(seq)):
+            wordlen=seqlen.item()
             char_seq_tensor[idx, idy, :wordlen] = torch.LongTensor(word)
-    print("char_seq_tensor2:", char_seq_tensor   ,file=f)
+    #print("char_seq_tensor2:", char_seq_tensor, file=f)
+
     #降维，排序
     #char_seq_tensor = char_seq_tensor[word_perm_idx].view(batch_size*max_seq_len,-1)
     #char_seq_lengths = char_seq_lengths[word_perm_idx].view(batch_size*max_seq_len,)
@@ -302,15 +314,15 @@ def batchify_with_label(input_batch_list, gpu, volatile_flag=False):   #input_ba
 
 
     char_seq_tensor = char_seq_tensor[word_perm_idx].view ( -1,int(max_word_len) )
-    print("char_seq_tensor3:",char_seq_tensor   ,file=f)
+    #print("char_seq_tensor3:",char_seq_tensor   ,file=f)
     char_seq_lengths = char_seq_lengths[word_perm_idx].view(-1, 1)
-    print("char_seq_lengths3:",char_seq_lengths   ,file=f)
+    #print("char_seq_lengths3:",char_seq_lengths   ,file=f)
 
     char_seq_lengths, char_perm_idx = char_seq_lengths.sort(0, descending=True)
-    print( "char_perm_idx:",char_perm_idx   ,file=f)
+    #print( "char_perm_idx:",char_perm_idx   ,file=f)
 
     char_seq_tensor = char_seq_tensor[char_perm_idx]            #!!!!!!!!
-    print("char_seq_tensor4:", char_seq_tensor   ,file=f)
+    #print("char_seq_tensor4:", char_seq_tensor   ,file=f)
     _, char_seq_recover = char_perm_idx.sort(0, descending=False)
 
     _, word_seq_recover = word_perm_idx.sort(0, descending=False)   #word_seq_recover为原始输入中的下标
@@ -393,18 +405,19 @@ def train(data, save_model_dir, seg=True):
                 continue
 
 
+            '''
             f=open('data/bug_data.txt','a+')
             print( "-----------------------------------------------------------------------------------------------------------",file=f)
             print("end:  ",end    ,file=f )
             print("data.train_Ids:", data.train_Ids[start:end], file=f)
-            print("data.train_texts:",data.train_texts[start:end]   ,file=f)
+            print("data.train_texts:",data.train_texts[start:end]   ,file=f)         
+            
+            '''
+
 
             gaz_list,  batch_word, batch_biword, batch_wordlen, batch_wordrecover, batch_char, batch_charlen, batch_charrecover, batch_label, mask  = batchify_with_label(instance, data.HP_gpu)
 
-            print("-----------------------------------------------------------------------------------------------------------",file=f)
             '''
-        
-        
             print("--------------------------------------------------------------------------------")
             print( "gaz_list:",gaz_list )
             print("batch_word:",batch_word )
@@ -542,8 +555,8 @@ if __name__ == '__main__':
     
     '''
 
-    torch.cuda.set_device(1)
-    gpu = True  # torch.cuda.is_available()  #确定系统是否支持CUDA
+    #torch.cuda.set_device(3)
+    gpu = False  #True  #  #torch.cuda.is_available()  #确定系统是否支持CUDA
 
     savemodel ="data/model/saved_model.lstmcrf."
 
@@ -556,13 +569,12 @@ if __name__ == '__main__':
     train_file = "data/bala_train"#"data/bala_train"
     dev_file = "data/bala_dev"
     test_file = "data/bala_test"
-    
     '''
 
 
     raw_file = 'data/raw_file'    #????????????????????
     model_dir = "model_path/"
-    dset_dir = "data/save.dset"
+    dset_dir = "data/model/saved_model.lstmcrf."
     output_file = 'data/output_file'
     status='train'
     seg="True"
@@ -585,7 +597,6 @@ if __name__ == '__main__':
     #gaz_file = "../../data/ctb.50d.vec"
     gaz_file = "../SubwordEncoding_download_data/zh.wiki.bpe.vs200000.d50.w2v.txt"    
     '''
-
     char_emb = "../2/gigaword_chn.all.a2b.uni.ite50.vec"
     bichar_emb = "../2/gigaword_chn.all.a2b.bi.ite50.vec"
     gaz_file = "../../data/ctb.50d.vec"
