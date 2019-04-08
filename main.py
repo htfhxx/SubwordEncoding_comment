@@ -441,7 +441,7 @@ def train(data, save_model_dir, seg=True):
             total_loss += loss.data[0]
             batch_loss += loss
 
-            if end%5 == 0:
+            if end%10 == 0:
                 temp_time = time.time()
                 temp_cost = temp_time - temp_start
                 temp_start = temp_time
@@ -481,6 +481,7 @@ def train(data, save_model_dir, seg=True):
             model_name = save_model_dir +'.'+ str(idx) + ".model"
             torch.save(model.state_dict(), model_name)
             best_dev = current_score
+            #
 
         # ## 测试集的预测和评估
         speed, acc, p, r, f, _ = evaluate(data, model, "test")
@@ -555,8 +556,8 @@ if __name__ == '__main__':
     
     '''
 
-    #torch.cuda.set_device(3)
-    gpu = False  #True  #  #torch.cuda.is_available()  #确定系统是否支持CUDA
+    torch.cuda.set_device(1)
+    gpu = True  #False  #True  #  #torch.cuda.is_available()  #确定系统是否支持CUDA
 
     savemodel ="data/model/saved_model.lstmcrf."
 
