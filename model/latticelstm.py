@@ -134,7 +134,7 @@ class MultiInputLSTMCell(nn.Module):
 
         h_0, c_0 = hx
         batch_size = h_0.size(0)
-        assert(batch_size == 1)
+        #assert(batch_size == 1)
         bias_batch = (self.bias.unsqueeze(0).expand(batch_size, *self.bias.size()))
         bias_batch = (self.bias.unsqueeze(0).expand(batch_size, *self.bias.size()))
         wh_b = torch.addmm(bias_batch, h_0, self.weight_hh)
@@ -227,7 +227,7 @@ class LatticeLSTM(nn.Module):
         input = input.transpose(1,0)
         seq_len = input.size(0)
         batch_size = input.size(1)
-        assert(batch_size == 1)
+        #assert(batch_size == 1)
         hidden_out = []
         memory_out = []
         if hidden:

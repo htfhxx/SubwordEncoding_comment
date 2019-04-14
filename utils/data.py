@@ -296,8 +296,8 @@ class Data:
             sent_length = len(predict_results[idx])
             for idy in range(sent_length):
                 ## content_list[idx] is a list with [word, char, label]
-                fout.write(content_list[idx][0][idy].encode('utf-8') + " " + predict_results[idx][idy] + '\n')
-
+               # fout.write(  str(content_list[idx][0][idy].encode('utf-8')) + " " + predict_results[idx][idy] + '\n')
+                fout.write(str(content_list[idx][0][idy]) + " " + predict_results[idx][idy] + '\n')
             fout.write('\n')
         fout.close()
         print("Predict %s result has been written into file. %s"%(name, output_file))

@@ -473,15 +473,15 @@ def train(data, save_model_dir, seg=True):
         else:
             current_score = acc
             print("Dev: time: %.2fs speed: %.2fst/s; acc: %.4f"%(dev_cost, speed, acc))
-
         if current_score > best_dev:
             if seg:
                 print ("Exceed previous best f score:", best_dev)
             else:
                 print( "Exceed previous best acc score:", best_dev)
+            model_name = save_model_dir +'.'+ str(idx) + ".model"
+            torch.save(model.state_dict(), model_name)
             best_dev = current_score
-        model_name = save_model_dir + '.' + str(idx) + ".model"
-        torch.save(model.state_dict(), model_name)
+            #
 
         # ## 测试集的预测和评估
         speed, acc, p, r, f, _ = evaluate(data, model, "test")
@@ -558,10 +558,10 @@ if __name__ == '__main__':
     
     '''
 
-    torch.cuda.set_device(3)
+    torch.cuda.set_device(1)
     gpu = True  #False #  #  #torch.cuda.is_available()  #确定系统是否支持CUDA
 
-    savemodel ="data/model_zx/saved_model.lstmcrf"
+    savemodel ="data/model_pku/saved_model.lstmcrf"
 
     '''
     train_file = "data/pku_train"#"data/bala_train"
@@ -573,14 +573,14 @@ if __name__ == '__main__':
     test_file = "data/bala_test"
     '''
 
-    train_file = "data/zx_train"
-    dev_file = "data/zx_dev"
-    test_file = "data/zx_test"
+    train_file = "data/pku_train"
+    dev_file = "data/pku_dev"
+    test_file = "data/pku_test"
 
 
     raw_file = 'data/raw_file'    #????????????????????
-    model_dir = "data/model_zx/saved_model.lstmcrf"
-    dset_dir = "data/model_zx/saved_model.lstmcrf.dset"
+    model_dir = "data/model_pku/saved_model.lstmcrf"
+    dset_dir = "data/model_pku/saved_model.lstmcrf.dset"
 
     output_file = 'data/output_file'
     #status='train'
