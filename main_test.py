@@ -528,28 +528,33 @@ def load_model_decode(model_dir, data, name, gpu, seg=True):
 
 if __name__ == '__main__':
 
-    torch.cuda.set_device(1)
-    gpu =True  #False #  #  #torch.cuda.is_available()  #确定系统是否支持CUDA
+    #torch.cuda.set_device(1)
+    gpu =False# True  #False #  #  #torch.cuda.is_available()  #确定系统是否支持CUDA
 
-    savemodel ="data/model_zx/saved_model.lstmcrf"
+
 
     '''
-    train_file = "data/pku_train"#"data/bala_train"
+    train_file = "data/pku_train"
     dev_file = "data/pku_dev"
     test_file = "data/pku_test"
 
     train_file = "data/bala_train"#"data/bala_train"
     dev_file = "data/bala_dev"
     test_file = "data/bala_test"
-    '''
-
+    
     train_file = "data/zx_train"
     dev_file = "data/zx_dev"
     test_file = "data/zx_test"
+    '''
+
+
+    train_file = "data/pku_train"
+    dev_file = "data/pku_dev"
+    test_file = "data/zx_test"
 
     raw_file = 'data/zx_test'    #????????????????????
-    model_dir = "data/model_zx/saved_model.lstmcrf.15.model"
-    dset_dir = "data/model_zx/saved_model.lstmcrf.dset"
+    model_dir = "data/model_pku/saved_model.lstmcrf.30.model"
+    dset_dir = "data/model_pku/saved_model.lstmcrf.dset"
 
     output_file = 'data/output_file'
     #status='train'
@@ -561,7 +566,6 @@ if __name__ == '__main__':
         seg = False
     status = status.lower()
 
-    save_model_dir = savemodel
 
     char_emb = "../2/gigaword_chn.all.a2b.uni.ite50.vec"
     bichar_emb = "../2/gigaword_chn.all.a2b.bi.ite50.vec"
