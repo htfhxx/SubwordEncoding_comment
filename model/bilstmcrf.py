@@ -24,8 +24,8 @@ class BiLSTM_CRF(nn.Module):
         self.crf = CRF(label_size, self.gpu)
 
 #loss, tag_seq = model.neg_log_likelihood_loss()
-    def neg_log_likelihood_loss(self, gaz_list, word_inputs, biword_inputs, word_seq_lengths,  char_inputs, char_seq_lengths, char_seq_recover, batch_label, mask):
-        outs = self.lstm.get_output_score(gaz_list, word_inputs, biword_inputs, word_seq_lengths,  char_inputs, char_seq_lengths, char_seq_recover)
+    def neg_log_likelihood_loss(self, gaz_list, batch_dict, word_inputs, biword_inputs, word_seq_lengths,  char_inputs, char_seq_lengths, char_seq_recover, batch_label, mask):
+        outs = self.lstm.get_output_score(gaz_list, batch_dict, word_inputs, biword_inputs, word_seq_lengths,  char_inputs, char_seq_lengths, char_seq_recover)
         batch_size = word_inputs.size(0)
         seq_len = word_inputs.size(1)
         total_loss = self.crf.neg_log_likelihood_loss(outs, mask, batch_label)
@@ -33,14 +33,14 @@ class BiLSTM_CRF(nn.Module):
         return total_loss, tag_seq
 
 
-    def forward(self, gaz_list, word_inputs, biword_inputs, word_seq_lengths, char_inputs, char_seq_lengths, char_seq_recover, mask):
-        outs = self.lstm.get_output_score(gaz_list, word_inputs, biword_inputs, word_seq_lengths, char_inputs, char_seq_lengths, char_seq_recover)
+    def forward(self, gaz_list, batch_dict,word_inputs, biword_inputs, word_seq_lengths, char_inputs, char_seq_lengths, char_seq_recover, mask):
+        outs = self.lstm.get_output_score(gaz_list, batch_dict,word_inputs, biword_inputs, word_seq_lengths, char_inputs, char_seq_lengths, char_seq_recover)
         batch_size = word_inputs.size(0)
         seq_len = word_inputs.size(1)
         scores, tag_seq = self.crf._viterbi_decode(outs, mask)
         return tag_seq
 
 
-    def get_lstm_features(self, gaz_list, word_inputs, biword_inputs, word_seq_lengths, char_inputs, char_seq_lengths, char_seq_recover):
-        return self.lstm.get_lstm_features(gaz_list, word_inputs, biword_inputs, word_seq_lengths, char_inputs, char_seq_lengths, char_seq_recover)
+    def get_lstm_features(self, gaz_list, batch_dict,word_inputs, biword_inputs, word_seq_lengths, char_inputs, char_seq_lengths, char_seq_recover):
+        return self.lstm.get_lstm_features(gaz_list, batch_dict,word_inputs, biword_inputs, word_seq_lengths, char_inputs, char_seq_lengths, char_seq_recover)
         

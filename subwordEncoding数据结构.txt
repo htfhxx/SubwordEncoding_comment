@@ -36,6 +36,14 @@ TrieNode ->    children = collections.defaultdict(TrieNode)
 
 
 
+×ÖµäÏà¹Ø£º
+
+
+
+
+
+
+
 
 main.py:
 	model = BiLSTM_CRF(data)

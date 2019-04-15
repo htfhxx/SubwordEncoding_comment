@@ -21,6 +21,7 @@ class BiLSTM(nn.Module):
         print ("build batched bilstm...")
         self.use_bigram = data.use_bigram
         self.gpu = data.HP_gpu
+        self.use_dict=data.HP_use_dict
         self.use_char = data.HP_use_char
         self.use_gaz = data.HP_use_gaz
         self.batch_size = data.HP_batch_size
@@ -63,6 +64,8 @@ class BiLSTM(nn.Module):
         lstm_input = self.embedding_dim + self.char_hidden_dim
         if self.use_bigram:
             lstm_input += data.biword_emb_dim
+        if self.use_dict:
+            lstm_input += data.dict_dim
         self.forward_lstm = LatticeLSTM(lstm_input, lstm_hidden, data.gaz_dropout, data.gaz_alphabet.size(), data.gaz_emb_dim, data.pretrain_gaz_embedding, True, data.HP_fix_gaz_emb, self.gpu)
 
 
@@ -94,7 +97,7 @@ class BiLSTM(nn.Module):
         return pretrain_emb
 
 
-    def get_lstm_features(self, gaz_list, word_inputs, biword_inputs, word_seq_lengths, char_inputs, char_seq_lengths, char_seq_recover):
+    def get_lstm_features(self, gaz_list, batch_dict,word_inputs, biword_inputs, word_seq_lengths, char_inputs, char_seq_lengths, char_seq_recover):
         """
             input:
                 word_inputs: (batch_size, sent_len)
@@ -109,6 +112,12 @@ class BiLSTM(nn.Module):
         batch_size = word_inputs.size(0)
         sent_len = word_inputs.size(1)
         word_embs =  self.word_embeddings(word_inputs)
+
+
+        if self.use_dict:
+            word_embs = torch.cat([word_embs, torch.FloatTensor(batch_dict)], 2)
+
+
         if self.use_bigram:
             biword_embs = self.biword_embeddings(biword_inputs)
             word_embs = torch.cat([word_embs, biword_embs],2)
@@ -117,12 +126,15 @@ class BiLSTM(nn.Module):
             char_features = self.char_feature.get_last_hiddens(char_inputs, char_seq_lengths.cpu().numpy())
             char_features = char_features[char_seq_recover]
             char_features = char_features.view(batch_size,sent_len,-1)
+
             ## concat word and char together
             word_embs = torch.cat([word_embs, char_features], 2)
+
         word_embs = self.drop(word_embs)
         # packed_words = pack_padded_sequence(word_embs, word_seq_lengths.cpu().numpy(), True)
         hidden = None
         lstm_out, hidden = self.forward_lstm(word_embs, gaz_list, hidden)
+
         if self.bilstm_flag:
             backward_hidden = None 
             backward_lstm_out, backward_hidden = self.backward_lstm(word_embs, gaz_list, backward_hidden)
@@ -133,20 +145,21 @@ class BiLSTM(nn.Module):
 
 
 # outs = bilstmcrf.lstm.get_output_score()
-    def get_output_score(self, gaz_list,  word_inputs, biword_inputs, word_seq_lengths, char_inputs, char_seq_lengths, char_seq_recover):
-        lstm_out = self.get_lstm_features(gaz_list, word_inputs,biword_inputs, word_seq_lengths, char_inputs, char_seq_lengths, char_seq_recover)
+    def get_output_score(self, gaz_list, batch_dict, word_inputs, biword_inputs, word_seq_lengths, char_inputs, char_seq_lengths, char_seq_recover):
+
+        lstm_out = self.get_lstm_features(gaz_list,batch_dict, word_inputs,biword_inputs, word_seq_lengths, char_inputs, char_seq_lengths, char_seq_recover)
         ## lstm_out (batch_size, sent_len, hidden_dim)
         outputs = self.hidden2tag(lstm_out)
         return outputs
     
 
-    def neg_log_likelihood_loss(self, gaz_list, word_inputs, biword_inputs, word_seq_lengths, char_inputs, char_seq_lengths, char_seq_recover, batch_label, mask):
+    def neg_log_likelihood_loss(self, gaz_list,batch_dict, word_inputs, biword_inputs, word_seq_lengths, char_inputs, char_seq_lengths, char_seq_recover, batch_label, mask):
         ## mask is not used
         batch_size = word_inputs.size(0)
         seq_len = word_inputs.size(1)
         total_word = batch_size * seq_len
         loss_function = nn.NLLLoss(ignore_index=0, size_average=False)
-        outs = self.get_output_score(gaz_list, word_inputs, biword_inputs, word_seq_lengths, char_inputs, char_seq_lengths, char_seq_recover)
+        outs = self.get_output_score(gaz_list,batch_dict, word_inputs, biword_inputs, word_seq_lengths, char_inputs, char_seq_lengths, char_seq_recover)
         # outs (batch_size, seq_len, label_vocab)
         outs = outs.view(total_word, -1)
         score = F.log_softmax(outs, 1)
@@ -156,12 +169,12 @@ class BiLSTM(nn.Module):
         return loss, tag_seq
 
 
-    def forward(self, gaz_list, word_inputs, biword_inputs, word_seq_lengths,  char_inputs, char_seq_lengths, char_seq_recover, mask):
+    def forward(self, gaz_list,batch_dict, word_inputs, biword_inputs, word_seq_lengths,  char_inputs, char_seq_lengths, char_seq_recover, mask):
         
         batch_size = word_inputs.size(0)
         seq_len = word_inputs.size(1)
         total_word = batch_size * seq_len
-        outs = self.get_output_score(gaz_list,  word_inputs, biword_inputs, word_seq_lengths, char_inputs, char_seq_lengths, char_seq_recover)
+        outs = self.get_output_score(gaz_list, batch_dict, word_inputs, biword_inputs, word_seq_lengths, char_inputs, char_seq_lengths, char_seq_recover)
         outs = outs.view(total_word, -1)
         _, tag_seq  = torch.max(outs, 1)
         tag_seq = tag_seq.view(batch_size, seq_len)

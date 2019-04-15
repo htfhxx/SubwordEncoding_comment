@@ -17,6 +17,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
 import numpy as np
+import codecs
 
 from utils.metric import get_ner_fmeasure
 from model.bilstmcrf import BiLSTM_CRF as SeqModel
@@ -166,6 +167,7 @@ def evaluate(data, model, name):
         instances = data.raw_Ids
     else:
         print( "Error: wrong evaluate name,", name)
+
     right_token = 0
     whole_token = 0
     pred_results = []
@@ -184,50 +186,6 @@ def evaluate(data, model, name):
         instance = instances[start:end]
         if not instance:
             continue
-
-        gaz_list,batch_word, batch_biword, batch_wordlen, batch_wordrecover, batch_char, batch_charlen, batch_charrecover, batch_label, mask  = batchify_with_label(instance, data.HP_gpu, True)
-
-        tag_seq = model(gaz_list,batch_word, batch_biword, batch_wordlen, batch_char, batch_charlen, batch_charrecover, mask)
-        # print ("tag:",tag_seq)
-        pred_label, gold_label = recover_label(tag_seq, batch_label, mask, data.label_alphabet, batch_wordrecover)
-        pred_results += pred_label
-        gold_results += gold_label
-    decode_time = time.time() - start_time
-    speed = len(instances)/decode_time
-    acc, p, r, f = get_ner_fmeasure(gold_results, pred_results, data.tagScheme)
-    return speed, acc, p, r, f, pred_results
-
-
-def evaluate(data, model, name):
-    if name == "train":
-        instances = data.train_Ids
-    elif name == "dev":
-        instances = data.dev_Ids
-    elif name == 'test':
-        instances = data.test_Ids
-    elif name == 'raw':
-        instances = data.raw_Ids
-    else:
-        print( "Error: wrong evaluate name,", name)
-
-    right_token = 0
-    whole_token = 0
-    pred_results = []
-    gold_results = []
-    ## set model in eval model
-    model.eval()
-    batch_size = 1
-    start_time = time.time()
-    train_num = len(instances)
-    total_batch = train_num//batch_size+1
-    for batch_id in range(total_batch):
-        start = batch_id*batch_size
-        end = (batch_id+1)*batch_size
-        if end >train_num:
-            end =  train_num
-        instance = instances[start:end]
-        if not instance:
-            continue
         gaz_list,batch_word, batch_biword, batch_wordlen, batch_wordrecover, batch_char, batch_charlen, batch_charrecover, batch_label, mask  = batchify_with_label(instance, data.HP_gpu, True)
 
         # batch_dict
@@ -235,6 +193,7 @@ def evaluate(data, model, name):
         for i in batch_word[0]:
             batch_dict_char[0].append(data.id2instance.get(i.item()))
         batch_dict = general_dict(batch_dict_char)
+
 
         tag_seq = model(gaz_list,batch_dict,batch_word, batch_biword, batch_wordlen, batch_char, batch_charlen, batch_charrecover, mask)
         # print ("tag:",tag_seq)
@@ -244,7 +203,7 @@ def evaluate(data, model, name):
     decode_time = time.time() - start_time
     speed = len(instances)/decode_time
     acc, p, r, f = get_ner_fmeasure(gold_results, pred_results, data.tagScheme)
-    return speed, acc, p, r, f, pred_results
+    return speed, acc, p, r, f, pred_results  
 
 # gaz_list,  batch_word, batch_biword, batch_wordlen, batch_wordrecover, batch_char, batch_charlen, batch_charrecover, batch_label, mask = batchify_with_label(instance, data.HP_gpu)  instance=train_ids[.]
 def batchify_with_label(input_batch_list, gpu, volatile_flag=False):   #input_batch_list = data.train_Ids[start:end]
@@ -465,8 +424,23 @@ def train(data, save_model_dir, seg=True):
             
             '''
 
-
             gaz_list,  batch_word, batch_biword, batch_wordlen, batch_wordrecover, batch_char, batch_charlen, batch_charrecover, batch_label, mask  = batchify_with_label(instance, data.HP_gpu)
+
+
+
+
+            #batch_dict
+            batch_dict_char = [[]]
+            for i in batch_word[0]:
+                batch_dict_char[0].append(data.id2instance.get(i.item()))
+
+            #print("batch_word:" ,batch_word)
+            #print("batch_dict_char:" ,batch_dict_char )
+            batch_dict=general_dict(batch_dict_char)
+            #print("batch_dict:", batch_dict)
+
+
+
 
             '''
             print("--------------------------------------------------------------------------------")
@@ -483,7 +457,7 @@ def train(data, save_model_dir, seg=True):
             print("--------------------------------------------------------------------------------")
             '''
             instance_count += 1
-            loss, tag_seq = model.neg_log_likelihood_loss(gaz_list, batch_word, batch_biword, batch_wordlen, batch_char, batch_charlen, batch_charrecover, batch_label, mask)
+            loss, tag_seq = model.neg_log_likelihood_loss(gaz_list, batch_dict, batch_word, batch_biword, batch_wordlen, batch_char, batch_charlen, batch_charrecover, batch_label, mask)
 
             right, whole = predict_check(tag_seq, batch_label, mask)
             right_token += right
@@ -524,15 +498,15 @@ def train(data, save_model_dir, seg=True):
         else:
             current_score = acc
             print("Dev: time: %.2fs speed: %.2fst/s; acc: %.4f"%(dev_cost, speed, acc))
-
         if current_score > best_dev:
             if seg:
                 print ("Exceed previous best f score:", best_dev)
             else:
                 print( "Exceed previous best acc score:", best_dev)
+            model_name = save_model_dir +'.'+ str(idx) + ".model"
+            torch.save(model.state_dict(), model_name)
             best_dev = current_score
-        model_name = save_model_dir + '.' + str(idx) + ".model"
-        torch.save(model.state_dict(), model_name)
+            #
 
         # ## 测试集的预测和评估
         speed, acc, p, r, f, _ = evaluate(data, model, "test")
@@ -555,14 +529,9 @@ def load_model_decode(model_dir, data, name, gpu, seg=True):
     #     model.load_state_dict(torch.load(model_dir), map_location=lambda storage, loc: storage)
     #     # model = torch.load(model_dir, map_location=lambda storage, loc: storage)
     # else:
-    #       model.load_state_dict( model_dir )
-
-    model.load_state_dict(torch.load(model_dir))
-
-
-    #model = torch.load(model_dir)
-    #
-
+    model.load_state_dict( model_dir )#   torch.load(model_dir))
+        # model = torch.load(model_dir)
+    
     print("Decode %s data ..."%(name))
     start_time = time.time()
     speed, acc, p, r, f, pred_results = evaluate(data, model, name)
@@ -604,37 +573,71 @@ def general_dict(batch_word):
 
 if __name__ == '__main__':
 
+
+#修改训练集测试集验证集，修改模型保存地址，修改gpu
+    '''
+    parser = argparse.ArgumentParser(description='Subword Encoding in Lattice LSTM for Chinese Word SegmentationF')
+    parser.add_argument('--embedding',  help='Embedding for words', default='None')
+    parser.add_argument('--status', choices=['train', 'test', 'decode'], help='update algorithm', default='train')
+    parser.add_argument('--savemodel', default="data/model/saved_model.lstmcrf.")
+    parser.add_argument('--savedset', help='Dir of saved data setting', default="data/save.dset")
+
+    parser.add_argument('--train', default="data/bala_train")
+    parser.add_argument('--dev', default="data/bala_dev" )
+    parser.add_argument('--test', default="data/bala_test")
+
+    parser.add_argument('--seg', default="True") 
+    parser.add_argument('--extendalphabet', default="True") 
+    parser.add_argument('--raw') 
+    parser.add_argument('--loadmodel')
+    parser.add_argument('--output') 
+    args = parser.parse_args() 
+    
+    train_file = args.train
+    dev_file = args.dev
+    test_file = args.test
+    raw_file = args.raw
+    model_dir = args.loadmodel
+    dset_dir = args.savedset
+    output_file = args.output
+    if args.seg.lower() == "true":
+        seg = True 
+    else:
+        seg = False
+    status = args.status.lower()
+    
+    '''
+
     #torch.cuda.set_device(1)
-    gpu =False# True  #False #  #  #torch.cuda.is_available()  #确定系统是否支持CUDA
+    gpu = False #True  #False #  #  #torch.cuda.is_available()  #确定系统是否支持CUDA
 
-
+    savemodel ="data/model_pku_dict/saved_model.lstmcrf"
 
     '''
     train_file = "data/pku_train"
     dev_file = "data/pku_dev"
     test_file = "data/pku_test"
 
-    train_file = "data/bala_train"#"data/bala_train"
+    train_file = "data/bala_train"
     dev_file = "data/bala_dev"
     test_file = "data/bala_test"
-    
-    train_file = "data/zx_train"
-    dev_file = "data/zx_dev"
-    test_file = "data/zx_test"
     '''
-
 
     train_file = "data/pku_train"
     dev_file = "data/pku_dev"
     test_file = "data/zx_test"
 
-    raw_file = 'data/zx_test'    #????????????????????
-    model_dir = "data/model_pku/saved_model.lstmcrf.30.model"
-    dset_dir = "data/model_pku/saved_model.lstmcrf.dset"
+
+
+    raw_file = 'data/raw_file'    #????????????????????
+    model_dir = "data/model_pku_dict/saved_model.lstmcrf"
+    dset_dir = "data/model_pku_dict/saved_model.lstmcrf.dset"
+    domain_word_path='data/dictionary_zx.txt'
+
 
     output_file = 'data/output_file'
     #status='train'
-    status = 'decode'
+    status = 'train'
     seg="True"
     if seg.lower() == "true":
         seg = True 
@@ -643,10 +646,23 @@ if __name__ == '__main__':
     status = status.lower()
 
 
+
+    save_model_dir = savemodel
+
+
+
+    '''demo
+    char_emb = "../SubwordEncoding_download_demo/gigaword_chn.all.a2b.uni.ite50.vec"
+    bichar_emb = "../SubwordEncoding_download_demo/gigaword_chn.all.a2b.bi.ite50.vec"
+    #gaz_file = "../../data/ctb.50d.vec"
+    gaz_file = "../SubwordEncoding_download_demo/zh.wiki.bpe.vs200000.d50.w2v.txt"
+
+    '''
     char_emb = "../2/gigaword_chn.all.a2b.uni.ite50.vec"
     bichar_emb = "../2/gigaword_chn.all.a2b.bi.ite50.vec"
-    #gaz_file = "../../data/ctb.50d.vec"
+    gaz_file = "../../data/ctb.50d.vec"
     gaz_file = "../2/zh.wiki.bpe.vs200000.d50.w2v.txt"
+
 
     print( "CuDNN:", torch.backends.cudnn.enabled )   #cuDNN用的是非确定算法,torch.backends.cudnn.enabled=False禁用cuDNN
     #gpu = False
@@ -660,10 +676,103 @@ if __name__ == '__main__':
     print( "Char emb:", char_emb)
     print( "Bichar emb:", bichar_emb)
     print( "Gaz file:",gaz_file)
-
+    if status == 'train':
+        print( "Model saved to:", save_model_dir)
     sys.stdout.flush()
 
-    if status == 'decode':
+
+
+    if status == 'train':
+        data = Data()
+        data.HP_gpu = gpu
+        data.HP_use_char = False
+        data.HP_batch_size = 1    ##############################
+        data.use_bigram = True
+        data.gaz_dropout = 0.5
+        data.HP_lr = 0.01
+        data.HP_dropout = 0.5
+        data.HP_iteration = 50
+        data.norm_gaz_emb = True
+        data.HP_fix_gaz_emb = False
+        data.HP_use_dict=True
+
+        if data.HP_use_dict==True:
+            with codecs.open(domain_word_path, 'r', 'utf-8') as f:
+                for line in f:
+                    line = line.strip().split()[0]
+                    data.domain_word_lists[line] = 1
+
+
+		
+		#data.word_alphabet  biword_alphabet   char_alphabet  label_alphabet   训练测试验证集的字、字+下个字、字、字的标签
+		##data.gaz的ent2type和ent2id：gaz_file的word type id
+		##data.gaz_alphabet：所有的子词
+        data_initialization(data, gaz_file, train_file, dev_file, test_file)
+
+		#data.train_texts：[words, biwords, chars, gazs, labels])
+		#data.train_Ids：[word_Ids, biword_Ids, char_Ids, gaz_Ids, label_Ids]
+        data.generate_instance_with_gaz(train_file,'train')
+        data.generate_instance_with_gaz(dev_file,'dev')
+        data.generate_instance_with_gaz(test_file,'test')
+
+        # 得到的data.train_texts的维度：np.array(data.train_texts).shape   (15L, 5L)
+        # 意思是 15个句子  5个维度[words, biwords, chars, gazs, labels]
+
+        # 字的embedding：data.pretrain_word_embedding	  data.word_emb_dim
+        data.build_word_pretrain_emb(char_emb)
+
+        #biword的embedding：data.pretrain_biword_embedding	   data.biword_emb_dim
+        data.build_biword_pretrain_emb(bichar_emb)
+
+        # 子词的embedding：data.pretrain_gaz_embedding, data.gaz_emb_dim
+        data.build_gaz_pretrain_emb(gaz_file)
+        '''
+        f1 = open('data/instance2index.txt', 'a+')
+        print(data.word_alphabet.instance2index , file=f1)
+        f2= open('data/instances.txt', 'a+')
+        print(data.word_alphabet.instances, file=f2)
+        f3= open('data/train_Ids.txt', 'a+')
+        print(data.train_Ids, file=f3)
+        f4= open('data/train_texts.txt', 'a+')
+        print(data.train_texts, file=f4)
+
+        '''
+        if data.HP_use_dict:
+            data.id2instance = {v: k for k, v in data.word_alphabet.instance2index.items()}
+
+        train(data, save_model_dir, seg)
+
+
+
+    elif status == 'test':
+
+        data = Data()
+        data.HP_gpu = gpu
+        data.HP_use_char = False
+        data.HP_batch_size = 1  ##############################
+        data.use_bigram = True
+        data.gaz_dropout = 0.5
+        data.HP_lr = 0.01
+        data.HP_dropout = 0.5
+        data.HP_iteration = 50
+        data.norm_gaz_emb = True
+        data.HP_fix_gaz_emb = False
+        data_initialization(data, gaz_file, train_file, dev_file, test_file)
+
+        data.generate_instance_with_gaz(train_file, 'train')
+        data.generate_instance_with_gaz(dev_file, 'dev')
+        data.generate_instance_with_gaz(test_file, 'test')
+
+        data.build_word_pretrain_emb(char_emb)
+        data.build_biword_pretrain_emb(bichar_emb)
+        data.build_gaz_pretrain_emb(gaz_file)
+
+        data_initialization(data, gaz_file, train_file, dev_file, test_file)
+
+        #data.generate_instance_with_gaz(test_file,'test')
+
+        load_model_decode(model_dir, data, 'test', gpu, seg)
+    elif status == 'decode':       
         data = load_data_setting(dset_dir)
         data.generate_instance_with_gaz(raw_file,'raw')
         decode_results = load_model_decode(model_dir, data, 'raw', gpu, seg)

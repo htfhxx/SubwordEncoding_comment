@@ -82,6 +82,11 @@ class Data:
         self.HP_clip = 5.0
         self.HP_momentum = 0
 
+        self.HP_use_dict=True
+        self.domain_word_lists=dict()
+        self.id2instance=dict()
+        self.dict_dim=8
+
         
     def show_data_summary(self):
         print("DATA SUMMARY START:")
@@ -121,6 +126,7 @@ class Data:
         print("     Hyperpara     use_gaz: %s"%(self.HP_use_gaz))
         print("     Hyperpara fix gaz emb: %s"%(self.HP_fix_gaz_emb))
         print("     Hyperpara    use_char: %s"%(self.HP_use_char))
+        print("     Hyperpara    use_dict: %s"%(self.HP_use_dict))
         if self.HP_use_char:
             print("             Char_features: %s"%(self.char_features))
         print("DATA SUMMARY END.")
