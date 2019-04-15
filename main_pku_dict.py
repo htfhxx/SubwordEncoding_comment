@@ -512,10 +512,14 @@ def train(data, save_model_dir, seg=True):
         speed, acc, p, r, f, _ = evaluate(data, model, "test")
         test_finish = time.time()
         test_cost = test_finish - dev_finish
+        file_test=open('data/model_pku_dict/test.txt','a')
         if seg:
             print("Test: time: %.2fs, speed: %.2fst/s; acc: %.4f, p: %.4f, r: %.4f, f: %.4f"%(test_cost, speed, acc, p, r, f))
+            print("Test: time: %.2fs, speed: %.2fst/s; acc: %.4f, p: %.4f, r: %.4f, f: %.4f" % (
+            test_cost, speed, acc, p, r, f),file=file_test)
         else:
             print("Test: time: %.2fs, speed: %.2fst/s; acc: %.4f"%(test_cost, speed, acc))
+            print("Test: time: %.2fs, speed: %.2fst/s; acc: %.4f" % (test_cost, speed, acc),file=file_test)
         gc.collect() 
 
 
