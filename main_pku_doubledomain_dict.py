@@ -436,7 +436,7 @@ def train(data, save_model_dir, seg=True):
 
             #print("batch_word:" ,batch_word)
             #print("batch_dict_char:" ,batch_dict_char )
-            batch_dict=general_dict(batch_dict_char,'dict')
+            batch_dict=general_dict(batch_dict_char,'domain')
             #print("batch_dict:", batch_dict)
 
 
@@ -512,7 +512,7 @@ def train(data, save_model_dir, seg=True):
         speed, acc, p, r, f, _ = evaluate(data, model, "test")
         test_finish = time.time()
         test_cost = test_finish - dev_finish
-        file_test=open('data/model_pku_dict/test.txt','a')
+        file_test=open('data/model_pku_doubledomain_dict/test.txt','a')
         if seg:
             print("Test: time: %.2fs, speed: %.2fst/s; acc: %.4f, p: %.4f, r: %.4f, f: %.4f"%(test_cost, speed, acc, p, r, f))
             print("Test: time: %.2fs, speed: %.2fst/s; acc: %.4f, p: %.4f, r: %.4f, f: %.4f" % (
@@ -639,10 +639,10 @@ if __name__ == '__main__':
     
     '''
 
-    torch.cuda.set_device(3)
+    torch.cuda.set_device(2)
     gpu = True  #False #  #  #torch.cuda.is_available()  #确定系统是否支持CUDA
 
-    savemodel ="data/model_pku_dict/saved_model.lstmcrf"
+    savemodel ="data/model_pku_doubledomain_dict/saved_model.lstmcrf"
 
     '''
     train_file = "data/pku_train"
@@ -661,8 +661,8 @@ if __name__ == '__main__':
 
 
     raw_file = 'data/raw_file'    #????????????????????
-    model_dir = "data/model_pku_dict/saved_model.lstmcrf"
-    dset_dir = "data/model_pku_dict/saved_model.lstmcrf.dset"
+    model_dir = "data/model_pku_doubledomain_dict/saved_model.lstmcrf"
+    dset_dir = "data/model_pku_doubledomain_dict/saved_model.lstmcrf.dset"
     dict_path='data/dictionary.txt'
     dict_domain_path='data/dictionary_zx.txt'
 

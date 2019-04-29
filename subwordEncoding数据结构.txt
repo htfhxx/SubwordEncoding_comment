@@ -174,3 +174,29 @@ tensor([[ 5,  6,  6,  5,  6,  6,  0,  0,  1,  0,  6,  4,  0,  6,
           6,  2,  5,  6,  6,  2,  1,  6,  6]])
 
 
+
+
+¹¹Ôì×Ó´Ê£º
+data.build_gaz_alphabet(self, input_file):
+line=[ A B C D ]
+1: [ A B C D ]  == word_list
+2: [ B C D ]
+3: [ C D ]
+4: [ D ]
+
+
+gazetteer:
+self.enumerateMatchList(self, word_list)
+1: [ [A] [B] [C] [D] ]  == word_list
+2: [ [B] [C] [D] ]
+3: [ [C] [D] ]
+4: [ [D] ]
+
+trie
+self.enumerateMatch(word_list, self.space)
+[ [A] [B] [C] [D] ] 
+1: ABCD ¡Á
+2£ºABC ¡Ì
+3£ºAB
+4: A
+

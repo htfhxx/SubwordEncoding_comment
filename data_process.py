@@ -38,13 +38,11 @@ def strQ2B(ustring):
 #全角转半角、成语替换为'I',数字替换为0,字母替换为'X'
 def preprocess(input,output):
     output_filename = os.path.join(DATA_PATH,output)
-
     #取出成语词典中的成语
     idioms=dict()
     with codecs.open(CHINESE_IDIOMS,'r','utf-8') as f:    
         for line in f:  
-            idioms[line.strip()]=1    #返回移除字符串头尾指定的字符(空格)生成的新字符串                              标记为1
-    
+            idioms[line.strip()]=1    #返回移除字符串头尾指定的字符(空格)生成的新字符串   标记为1
     count_idioms = 0
     sents=[]
     #pku_training.utf8的文本处理：

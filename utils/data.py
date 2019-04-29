@@ -83,7 +83,8 @@ class Data:
         self.HP_momentum = 0
 
         self.HP_use_dict=True
-        self.domain_word_lists=dict()
+        self.domain_wordlists=dict()
+        self.dict_wordlists=dict()
         self.id2instance=dict()
         self.dict_dim=8
 
@@ -209,6 +210,7 @@ class Data:
             print ("Gaz file is None, load nothing")
 
 	#调用来自：data.build_gaz_alphabet(train_file)
+    #构造子词序列
     def build_gaz_alphabet(self, input_file):
         in_lines = open(input_file,'r').readlines()
         word_list = []

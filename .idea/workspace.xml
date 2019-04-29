@@ -2,7 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="be576a3e-6e01-4ef8-bec9-5fec921de86e" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/main_pku_doubledomain_dict.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main_zx_dict.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main_zx_double_dict.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_process.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_process.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main_pku_dict.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_pku_dict.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/bilstm.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/bilstm.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/subwordEncoding数据结构.txt" beforeDir="false" afterPath="$PROJECT_DIR$/subwordEncoding数据结构.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/data.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/data.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -18,11 +27,14 @@
     <SUITE FILE_PATH="coverage/SubwordEncoding_comment$practice.coverage" NAME="practice Coverage Results" MODIFIED="1555329948376" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/utils/.ipynb_checkpoints" />
     <SUITE FILE_PATH="coverage/SubwordEncoding_comment$crf.coverage" NAME="crf Coverage Results" MODIFIED="1554195373333" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/model" />
     <SUITE FILE_PATH="coverage/SubwordEncoding_comment$main2.coverage" NAME="main2 Coverage Results" MODIFIED="1554993006711" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/SubwordEncoding_comment$main_pku_dict.coverage" NAME="main_pku_dict Coverage Results" MODIFIED="1555335151982" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/SubwordEncoding_comment$main_zx_double_dict.coverage" NAME="main_zx_double_dict Coverage Results" MODIFIED="1555485829227" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/SubwordEncoding_comment$main_zx_dict.coverage" NAME="main_zx_dict Coverage Results" MODIFIED="1555469597591" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/SubwordEncoding_comment$main_pku_dict.coverage" NAME="main_pku_dict Coverage Results" MODIFIED="1555468835979" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/SubwordEncoding_comment$data.coverage" NAME="data Coverage Results" MODIFIED="1555133202915" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/utils" />
     <SUITE FILE_PATH="coverage/SubwordEncoding_comment$data_process_zx.coverage" NAME="data_process_zx Coverage Results" MODIFIED="1555050747856" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/SubwordEncoding_comment$bilstm.coverage" NAME="bilstm Coverage Results" MODIFIED="1555333643344" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/model" />
-    <SUITE FILE_PATH="coverage/SubwordEncoding_comment$main_test.coverage" NAME="main_test Coverage Results" MODIFIED="1555318371310" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/SubwordEncoding_comment$main_pku_doubledomain_dict.coverage" NAME="main_pku_doubledomain_dict Coverage Results" MODIFIED="1555485846236" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/SubwordEncoding_comment$main_test.coverage" NAME="main_test Coverage Results" MODIFIED="1556454551839" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/SubwordEncoding_comment$bilstmcrf.coverage" NAME="bilstmcrf Coverage Results" MODIFIED="1555327668980" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/model" />
   </component>
   <component name="DatabaseView">
@@ -45,26 +57,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/main_pku_dict.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="263">
-              <caret line="522" column="21" lean-forward="true" selection-start-line="522" selection-start-column="21" selection-end-line="522" selection-end-column="21" />
-              <folding>
-                <element signature="e#178#189#0" expanded="true" />
-                <element signature="e#5088#6631#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main_test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="268">
-              <caret line="237" selection-start-line="237" selection-end-line="237" />
-              <folding>
-                <element signature="e#5088#6631#0" />
-              </folding>
+            <state relative-caret-position="40">
+              <caret line="649" column="33" lean-forward="true" selection-start-line="649" selection-start-column="33" selection-end-line="649" selection-end-column="33" />
             </state>
           </provider>
         </entry>
@@ -72,74 +68,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/utils/data.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="423">
-              <caret line="87" column="23" selection-start-line="87" selection-start-column="23" selection-end-line="87" selection-end-column="23" />
+            <state relative-caret-position="361">
+              <caret line="86" column="27" selection-start-line="86" selection-start-column="13" selection-end-line="86" selection-end-column="27" />
               <folding>
                 <element signature="e#177#187#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/utils/functions.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="318" column="35" lean-forward="true" selection-start-line="318" selection-start-column="35" selection-end-line="318" selection-end-column="35" />
-              <folding>
-                <element signature="e#177#187#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/model/charbilstm.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="30" column="20" lean-forward="true" selection-start-line="30" selection-start-column="20" selection-end-line="30" selection-end-column="20" />
-              <folding>
-                <element signature="e#182#194#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/model/charcnn.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="82">
-              <caret line="14" column="43" selection-start-line="14" selection-start-column="43" selection-end-line="14" selection-end-column="43" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/model/crf.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="280">
-              <caret line="163" column="37" selection-start-line="163" selection-start-column="28" selection-end-line="163" selection-end-column="37" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/model/bilstm.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="132">
-              <caret line="124" column="43" selection-start-line="124" selection-start-column="41" selection-end-line="124" selection-end-column="43" />
-              <folding>
-                <element signature="e#182#194#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/model/latticelstm.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="171">
-              <caret line="20" column="38" selection-start-line="20" selection-start-column="27" selection-end-line="20" selection-end-column="38" />
             </state>
           </provider>
         </entry>
@@ -155,21 +88,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>savemodel</find>
-      <find>load_data_setting</find>
-      <find>dset_dir</find>
-      <find>raw_file</find>
-      <find>load_model_decode</find>
-      <find>save_data_name</find>
-      <find>model_name</find>
-      <find>model</find>
-      <find>asser</find>
-      <find>Fix emb</find>
-      <find>assert</find>
-      <find>batch_size</find>
-      <find>write_decoded_results</find>
-      <find>instance2index</find>
-      <find>save_data_setting</find>
       <find>model2</find>
       <find>save_model_dir</find>
       <find>Epoch</find>
@@ -185,6 +103,21 @@
       <find>lstm_input</find>
       <find>gaz_list</find>
       <find>id2ins</find>
+      <find>gaz_alphabet</find>
+      <find>Alphabet('gaz')</find>
+      <find>enumerateMatch</find>
+      <find>normalize_word</find>
+      <find>enumerateMatchList</find>
+      <find>dict_wordlists</find>
+      <find>general_dict</find>
+      <find>model_</find>
+      <find>domain</find>
+      <find>dict</find>
+      <find>'dict'</find>
+      <find>model_pku</find>
+      <find>model_zx</find>
+      <find>'domain'</find>
+      <find>domain_word_lists</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -201,7 +134,6 @@
         <option value="$PROJECT_DIR$/utils/functions.py" />
         <option value="$PROJECT_DIR$/model/charbilstm.py" />
         <option value="$PROJECT_DIR$/model/crf.py" />
-        <option value="$PROJECT_DIR$/data_process.py" />
         <option value="$PROJECT_DIR$/model/latticelstm.py" />
         <option value="$PROJECT_DIR$/main2.py" />
         <option value="$PROJECT_DIR$/data_process_zx.py" />
@@ -210,18 +142,22 @@
         <option value="$PROJECT_DIR$/utils/.ipynb_checkpoints/practice.py" />
         <option value="$PROJECT_DIR$/practice.py" />
         <option value="$PROJECT_DIR$/model/bilstmcrf.py" />
-        <option value="$PROJECT_DIR$/utils/data.py" />
-        <option value="$PROJECT_DIR$/model/bilstm.py" />
-        <option value="$PROJECT_DIR$/main_test.py" />
         <option value="$PROJECT_DIR$/main_pku_dict.py" />
+        <option value="$PROJECT_DIR$/model/bilstm.py" />
+        <option value="$PROJECT_DIR$/main_zx_dict.py" />
+        <option value="$PROJECT_DIR$/main_zx_double_dict.py" />
+        <option value="$PROJECT_DIR$/main_pku_doubledomain_dict.py" />
+        <option value="$PROJECT_DIR$/data_process.py" />
+        <option value="$PROJECT_DIR$/utils/data.py" />
+        <option value="$PROJECT_DIR$/main_test.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1912" />
-    <option name="y" value="71" />
-    <option name="width" value="1456" />
-    <option name="height" value="886" />
+  <component name="ProjectFrameBounds" extendedState="7">
+    <option name="x" value="-345" />
+    <option name="y" value="15" />
+    <option name="width" value="2275" />
+    <option name="height" value="1380" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -229,7 +165,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -251,6 +186,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -272,12 +208,12 @@
     </option>
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\workspace\SubwordEncoding_comment" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\workspace\SubwordEncoding_comment" />
       <recent name="D:\workspace\SubwordEncoding_comment\utils" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\workspace\SubwordEncoding_comment" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -292,29 +228,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.main_pku_dict">
-    <configuration name="bilstm" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="SubwordEncoding_comment" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/model" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/model/bilstm.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Python.main_test">
     <configuration name="main_pku_dict" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="SubwordEncoding_comment" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -337,29 +251,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="practice (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="SubwordEncoding_comment" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/utils" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="D:\workspace\SubwordEncoding_comment\practice.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="practice (2)" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="main_pku_doubledomain_dict" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="SubwordEncoding_comment" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -372,7 +264,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/practice.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main_pku_doubledomain_dict.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -381,7 +273,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="practice" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="main_test" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="SubwordEncoding_comment" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -389,12 +281,56 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/utils/.ipynb_checkpoints" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="D:\workspace\SubwordEncoding_comment\practice.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main_test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="main_zx_dict" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="SubwordEncoding_comment" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main_zx_dict.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="main_zx_double_dict" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="SubwordEncoding_comment" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main_zx_double_dict.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -405,11 +341,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.main_test" />
+        <item itemvalue="Python.main_pku_doubledomain_dict" />
+        <item itemvalue="Python.main_zx_double_dict" />
+        <item itemvalue="Python.main_zx_dict" />
         <item itemvalue="Python.main_pku_dict" />
-        <item itemvalue="Python.bilstm" />
-        <item itemvalue="Python.practice (2)" />
-        <item itemvalue="Python.practice (1)" />
-        <item itemvalue="Python.practice" />
       </list>
     </recent_temporary>
   </component>
@@ -449,11 +385,20 @@
       <workItem from="1554992836889" duration="783000" />
       <workItem from="1555034171171" duration="36261000" />
       <workItem from="1555318114424" duration="12217000" />
+      <workItem from="1555398902598" duration="962000" />
+      <workItem from="1555466962135" duration="29877000" />
+      <workItem from="1555851377978" duration="597000" />
+      <workItem from="1555917703531" duration="3231000" />
+      <workItem from="1556070282584" duration="4768000" />
+      <workItem from="1556157235375" duration="8321000" />
+      <workItem from="1556195074386" duration="596000" />
+      <workItem from="1556259542626" duration="7325000" />
+      <workItem from="1556428448160" duration="11961000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="238889000" />
+    <option name="totallyTimeSpent" value="306527000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -465,31 +410,31 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1912" y="71" width="1456" height="886" extended-state="6" />
+    <frame x="-7" y="-7" width="1550" height="848" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.5793269" visible="true" weight="0.2636103" />
-      <window_info id="Structure" order="1" sideWeight="0.42067307" side_tool="true" visible="true" weight="0.2636103" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.54398566" visible="true" weight="0.327748" />
+      <window_info id="Structure" order="1" sideWeight="0.45601436" side_tool="true" visible="true" weight="0.327748" />
       <window_info id="Favorites" order="2" sideWeight="0.47207448" side_tool="true" weight="0.21203439" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49928367" weight="0.17553191" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.63395417" weight="0.44680852" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.8438338" weight="0.22206704" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.495702" weight="0.32978722" />
       <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.49641833" weight="0.32845744" />
-      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.49283668" weight="0.52393615" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.36604583" side_tool="true" visible="true" weight="0.44680852" />
-      <window_info anchor="bottom" x="2014" y="396" width="1251" height="235" id="Python Console" order="10" sideWeight="0.8631805" weight="0.5638298" />
+      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.4919571" weight="0.52374303" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.15616623" side_tool="true" visible="true" weight="0.22206704" />
+      <window_info anchor="bottom" x="2014" y="396" width="1251" height="235" id="Python Console" order="10" sideWeight="0.86126006" weight="0.56284916" />
       <window_info anchor="bottom" id="Docker" order="11" show_stripe_button="false" />
-      <window_info anchor="bottom" id="File Transfer" order="12" sideWeight="0.48458445" weight="0.19553073" />
+      <window_info anchor="bottom" id="File Transfer" order="12" sideWeight="0.480563" weight="0.400838" />
       <window_info anchor="bottom" id="Database Changes" order="13" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Database" order="3" weight="0.3295129" />
       <window_info anchor="right" id="SciView" order="4" weight="0.23819445" />
-      <window_info anchor="right" id="Remote Host" order="5" sideWeight="0.49822694" visible="true" weight="0.1239255" />
+      <window_info anchor="right" id="Remote Host" order="5" sideWeight="0.49822694" visible="true" weight="0.13672923" />
       <window_info anchor="right" x="0" y="0" width="314" height="686" id="Documentation" order="6" sideWeight="0.50177306" side_tool="true" weight="0.3295129" />
     </layout>
   </component>
@@ -525,130 +470,11 @@
     <entry file="file://$PROJECT_DIR$/run_seg.sh">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/data_process.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1900">
-          <caret line="100" column="26" selection-start-line="100" selection-start-column="26" selection-end-line="100" selection-end-column="26" />
-          <folding>
-            <element signature="e#24#63#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/utils/metric.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="121" column="12" selection-start-line="121" selection-start-column="6" selection-end-line="121" selection-end-column="12" />
-          <folding>
-            <element signature="e#209#227#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/utils/trie.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="353">
-          <caret line="20" column="27" selection-start-line="20" selection-start-column="27" selection-end-line="20" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data_process_zx.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="103" column="16" lean-forward="true" selection-start-line="103" selection-start-column="16" selection-end-line="103" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main2.py" />
-    <entry file="file://$PROJECT_DIR$/utils/alphabet.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="19" column="27" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/utils/gazetteer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="1" column="11" selection-start-line="1" selection-start-column="11" selection-end-line="1" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1646">
-          <caret line="483" column="50" lean-forward="true" selection-start-line="483" selection-start-column="50" selection-end-line="483" selection-end-column="50" />
-          <folding>
-            <element signature="e#178#189#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main_pku.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="209">
           <caret line="474" column="60" selection-start-line="474" selection-start-column="60" selection-end-line="474" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/model/charbilstm.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="30" column="20" lean-forward="true" selection-start-line="30" selection-start-column="20" selection-end-line="30" selection-end-column="20" />
-          <folding>
-            <element signature="e#182#194#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/model/charcnn.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="82">
-          <caret line="14" column="43" selection-start-line="14" selection-start-column="43" selection-end-line="14" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/model/crf.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="163" column="37" selection-start-line="163" selection-start-column="28" selection-end-line="163" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/model/latticelstm.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="20" column="38" selection-start-line="20" selection-start-column="27" selection-end-line="20" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/model/bilstmcrf.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="22" column="31" selection-start-line="22" selection-start-column="27" selection-end-line="22" selection-end-column="31" />
-          <folding>
-            <element signature="e#183#195#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/utils/functions.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="318" column="35" lean-forward="true" selection-start-line="318" selection-start-column="35" selection-end-line="318" selection-end-column="35" />
-          <folding>
-            <element signature="e#177#187#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/utils/data.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="423">
-          <caret line="87" column="23" selection-start-line="87" selection-start-column="23" selection-end-line="87" selection-end-column="23" />
-          <folding>
-            <element signature="e#177#187#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -662,34 +488,172 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/model/bilstm.py">
+    <entry file="file://$PROJECT_DIR$/model/charbilstm.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="124" column="43" selection-start-line="124" selection-start-column="41" selection-end-line="124" selection-end-column="43" />
+        <state relative-caret-position="475">
+          <caret line="30" column="20" selection-start-line="30" selection-start-column="20" selection-end-line="30" selection-end-column="20" />
           <folding>
             <element signature="e#182#194#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main_test.py">
+    <entry file="file://$PROJECT_DIR$/model/charcnn.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="268">
-          <caret line="237" selection-start-line="237" selection-end-line="237" />
+        <state relative-caret-position="190">
+          <caret line="14" column="43" selection-start-line="14" selection-start-column="43" selection-end-line="14" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/alphabet.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1387">
+          <caret line="74" column="8" selection-start-line="74" selection-start-column="8" selection-end-line="74" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main_zx_double_dict.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="11913">
+          <caret line="644" column="41" selection-start-line="644" selection-start-column="21" selection-end-line="644" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main_pku_doubledomain_dict.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="10127">
+          <caret line="550" column="4" selection-start-line="550" selection-start-column="4" selection-end-line="550" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/metric.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2242">
+          <caret line="121" column="12" selection-start-line="121" selection-start-column="6" selection-end-line="121" selection-end-column="12" />
           <folding>
-            <element signature="e#5088#6631#0" />
+            <element signature="e#209#227#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data_process.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1349">
+          <caret line="53" column="33" lean-forward="true" selection-start-line="53" selection-start-column="33" selection-end-line="53" selection-end-column="33" />
+          <folding>
+            <element signature="e#24#63#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data_process_zx.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="103" column="16" lean-forward="true" selection-start-line="103" selection-start-column="16" selection-end-line="103" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main_zx_dict.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="11229">
+          <caret line="599" column="42" selection-start-line="599" selection-start-column="42" selection-end-line="599" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/functions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3610">
+          <caret line="189" column="37" selection-start-line="189" selection-start-column="37" selection-end-line="189" selection-end-column="37" />
+          <folding>
+            <element signature="e#177#187#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/trie.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="456">
+          <caret line="24" selection-start-line="24" selection-end-line="30" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/gazetteer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="684">
+          <caret line="36" column="35" selection-start-line="36" selection-start-column="35" selection-end-line="36" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/crf.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="45" column="20" selection-start-line="45" selection-start-column="20" selection-end-line="45" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/latticelstm.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="535">
+          <caret line="83" column="26" selection-start-line="83" selection-start-column="26" selection-end-line="83" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/bilstm.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="118" lean-forward="true" selection-start-line="118" selection-end-line="118" />
+          <folding>
+            <element signature="e#182#194#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="98">
+          <caret line="434" column="46" lean-forward="true" selection-start-line="434" selection-start-column="46" selection-end-line="434" selection-end-column="46" />
+          <folding>
+            <element signature="e#178#189#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/bilstmcrf.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="27" column="36" selection-start-line="27" selection-start-column="36" selection-end-line="27" selection-end-column="36" />
+          <folding>
+            <element signature="e#183#195#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/data.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="361">
+          <caret line="86" column="27" selection-start-line="86" selection-start-column="13" selection-end-line="86" selection-end-column="27" />
+          <folding>
+            <element signature="e#177#187#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main_pku_dict.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="263">
-          <caret line="522" column="21" lean-forward="true" selection-start-line="522" selection-start-column="21" selection-end-line="522" selection-end-column="21" />
+        <state relative-caret-position="22">
+          <caret line="550" selection-start-line="550" selection-end-line="602" selection-end-column="21" />
           <folding>
             <element signature="e#178#189#0" expanded="true" />
-            <element signature="e#5088#6631#0" />
+            <element signature="e#5102#6874#0" />
+            <element signature="e#22202#24173#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="40">
+          <caret line="649" column="33" lean-forward="true" selection-start-line="649" selection-start-column="33" selection-end-line="649" selection-end-column="33" />
         </state>
       </provider>
     </entry>

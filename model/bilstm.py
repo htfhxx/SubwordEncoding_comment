@@ -113,9 +113,12 @@ class BiLSTM(nn.Module):
         sent_len = word_inputs.size(1)
         word_embs =  self.word_embeddings(word_inputs)
 
+        batch_dict=torch.FloatTensor(batch_dict)
+        if self.gpu:
+            batch_dict=batch_dict.cuda()
 
         if self.use_dict:
-            word_embs = torch.cat([word_embs, torch.FloatTensor(batch_dict)], 2)
+            word_embs = torch.cat([word_embs, batch_dict], 2)
 
 
         if self.use_bigram:
